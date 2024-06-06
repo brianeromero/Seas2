@@ -23,6 +23,9 @@ struct PersistenceController {
             newIsland.islandLocation = "Sample Location"
             newIsland.enteredBy = "Sample Pirate"
             newIsland.creationDate = Date()
+            // Set latitude and longitude here
+            newIsland.latitude = 0.0 // Default latitude
+            newIsland.longitude = 0.0 // Default longitude
         }
         do {
             try viewContext.save()

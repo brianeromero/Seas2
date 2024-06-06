@@ -4,6 +4,12 @@
 //
 //  Created by Brian Romero on 6/5/24.
 //
+//
+//  IslandDetailView.swift
+//  Seas2
+//
+//  Created by Brian Romero on 6/5/24.
+//
 
 import SwiftUI
 import CoreData
@@ -33,7 +39,7 @@ struct IslandDetailContent: View {
             
             Text("Timestamp: \(formattedDate(island.timestamp) ?? "Unknown")")
             
-            NavigationLink(destination: IslandMapView(island: island)) {
+            NavigationLink(destination: IslandMapView(islands: [island])) {
                 Text("Show on Map")
                     .foregroundColor(.blue)
                     .underline()
@@ -49,20 +55,5 @@ struct IslandDetailContent: View {
         formatter.dateStyle = .medium
         formatter.timeStyle = .medium
         return formatter.string(from: date)
-    }
-}
-
-
-struct IslandDetailView_Previews: PreviewProvider {
-    static var previews: some View {
-        // Create a single instance of PirateIsland for preview
-        let previewIsland = PirateIsland()
-        previewIsland.islandName = "Sample Island"
-        previewIsland.islandLocation = "Sample Location"
-        previewIsland.enteredBy = "Sample Pirate"
-        previewIsland.creationDate = Date() // Set a valid creation date
-        previewIsland.timestamp = Date()
-
-        return IslandDetailView(island: previewIsland)
     }
 }

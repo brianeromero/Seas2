@@ -4,11 +4,10 @@
 //
 //  Created by Brian Romero on 6/5/24.
 //
-
-import Foundation
 import SwiftUI
 import CoreData
 import Combine
+import CoreLocation
 
 struct AddIslandFormView: View {
     @Environment(\.managedObjectContext) private var viewContext
@@ -16,12 +15,12 @@ struct AddIslandFormView: View {
     @Binding var islandLocation: String
     @Binding var enteredBy: String
     
-    @State private var street = ""
-    @State private var city = ""
-    @State private var state = ""
-    @State private var zip = ""
+    @State private var street: String = ""
+    @State private var city: String = ""
+    @State private var state: String = ""
+    @State private var zip: String = ""
     
-    @State private var isSaveEnabled = false
+    @State private var isSaveEnabled: Bool = false
     
     @Environment(\.presentationMode) var presentationMode
     
@@ -46,9 +45,7 @@ struct AddIslandFormView: View {
                 
                 Button("Save") {
                     if isSaveEnabled {
-                        saveIsland()
-                        clearFields()
-                        presentationMode.wrappedValue.dismiss()
+                        geocodeIslandLocation()
                     } else {
                         print("Error: Required fields are empty")
                     }
@@ -89,13 +86,30 @@ struct AddIslandFormView: View {
         zip = ""
     }
     
-    private func saveIsland() {
-        let newIsland = PirateIsland(context: viewContext)
+    private func geocodeIslandLocation() {
+        geocodeAddress(islandLocation) { result in
+            switch result {
+            case .success(let (latitude, longitude)):
+                saveIsland(latitude: latitude, longitude: longitude)
+                clearFields()
+                presentationMode.wrappedValue.dismiss()
+            case .failure(let error):
+                print("Geocoding failed: \(error.localizedDescription)")
+            }
+        }
+    }
+
+
+
+    private func saveIsland(latitude: Double, longitude: Double) {
+        let newIsland: PirateIsland = PirateIsland(context: viewContext)
         newIsland.islandName = islandName
         newIsland.islandLocation = islandLocation
         newIsland.enteredBy = enteredBy
         newIsland.creationDate = Date() // Set the creationDate to the current date
         newIsland.timestamp = Date()
+        newIsland.latitude = latitude
+        newIsland.longitude = longitude
         
         do {
             try viewContext.save()

@@ -10,7 +10,7 @@ import CoreData
 import Combine
 
 func geocodeAddress(_ address: String, completion: @escaping (Result<(latitude: Double, longitude: Double), Error>) -> Void) {
-    let apiKey = "AIzaSyBSGUnuzggEBdGQXuk-6G06OyD7kXxu1VM"
+    let apiKey = "AIzaSyBSGUnuzggEBdGQXuk-6G06OyD7kXxu1VM" // Your Google Maps API key
     let encodedAddress = address.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
     let urlString = "https://maps.googleapis.com/maps/api/geocode/json?address=\(encodedAddress)&key=\(apiKey)"
     
@@ -39,9 +39,9 @@ func geocodeAddress(_ address: String, completion: @escaping (Result<(latitude: 
             }
             
             if let results = json?["results"] as? [[String: Any]], let location = results.first?["geometry"] as? [String: Any], let coordinates = location["location"] as? [String: Double] {
-                let latitude = coordinates["lat"]!
-                let longitude = coordinates["lng"]!
-                completion(.success((latitude, longitude)))
+                let latitude = coordinates["lat"] ?? 0.0
+                let longitude = coordinates["lng"] ?? 0.0
+                completion(.success((latitude: latitude, longitude: longitude)))
             } else {
                 completion(.failure(NSError(domain: "GeocodingError", code: 0, userInfo: [NSLocalizedDescriptionKey: "Invalid response format"])))
             }
@@ -50,4 +50,3 @@ func geocodeAddress(_ address: String, completion: @escaping (Result<(latitude: 
         }
     }.resume()
 }
-

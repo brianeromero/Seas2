@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C138E332C12447B00F7F532 /* IslandMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C138E322C12447B00F7F532 /* IslandMap.swift */; };
+		0C138E362C126B8D00F7F532 /* AllIslandMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C138E352C126B8D00F7F532 /* AllIslandMapView.swift */; };
+		0C138E382C126B9700F7F532 /* AllMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C138E372C126B9700F7F532 /* AllMapView.swift */; };
+		0C138E3A2C126BB000F7F532 /* AllMapViewContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C138E392C126BAF00F7F532 /* AllMapViewContent.swift */; };
 		0C36E3342C116777001E38C7 /* Seas2App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C36E3332C116777001E38C7 /* Seas2App.swift */; };
 		0C36E3362C116777001E38C7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C36E3352C116777001E38C7 /* ContentView.swift */; };
 		0C36E33B2C116779001E38C7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0C36E33A2C116779001E38C7 /* Preview Assets.xcassets */; };
@@ -44,6 +48,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0C138E322C12447B00F7F532 /* IslandMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IslandMap.swift; sourceTree = "<group>"; };
+		0C138E352C126B8D00F7F532 /* AllIslandMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllIslandMapView.swift; sourceTree = "<group>"; };
+		0C138E372C126B9700F7F532 /* AllMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllMapView.swift; sourceTree = "<group>"; };
+		0C138E392C126BAF00F7F532 /* AllMapViewContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllMapViewContent.swift; sourceTree = "<group>"; };
 		0C36E3302C116777001E38C7 /* Seas2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Seas2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C36E3332C116777001E38C7 /* Seas2App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Seas2App.swift; sourceTree = "<group>"; };
 		0C36E3352C116777001E38C7 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -92,6 +100,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0C138E342C126B6B00F7F532 /* ALL ISLANDS */ = {
+			isa = PBXGroup;
+			children = (
+				0C138E352C126B8D00F7F532 /* AllIslandMapView.swift */,
+				0C138E372C126B9700F7F532 /* AllMapView.swift */,
+				0C138E392C126BAF00F7F532 /* AllMapViewContent.swift */,
+			);
+			path = "ALL ISLANDS";
+			sourceTree = "<group>";
+		};
 		0C36E3272C116777001E38C7 = {
 			isa = PBXGroup;
 			children = (
@@ -122,6 +140,7 @@
 				0C36E36A2C11697E001E38C7 /* AddIslandFormView.swift */,
 				0C36E36C2C116996001E38C7 /* IslandDetailView..swift */,
 				0C36E36E2C1169AD001E38C7 /* IslandMapView.swift */,
+				0C138E322C12447B00F7F532 /* IslandMap.swift */,
 				0C36E3702C1169C8001E38C7 /* GeocodingUtility.swift */,
 				0C36E33C2C116779001E38C7 /* Persistence.swift */,
 				0C36E33E2C116779001E38C7 /* Seas2.xcdatamodeld */,
@@ -129,6 +148,7 @@
 				0C36E3652C116917001E38C7 /* PirateIsland+CoreDataProperties.swift */,
 				0C36E3722C116AD6001E38C7 /* CoreDataStack.swift */,
 				0C36E3372C116779001E38C7 /* Assets.xcassets */,
+				0C138E342C126B6B00F7F532 /* ALL ISLANDS */,
 				0C36E3392C116779001E38C7 /* Preview Content */,
 			);
 			path = Seas2;
@@ -291,16 +311,20 @@
 			files = (
 				0C36E3402C116779001E38C7 /* Seas2.xcdatamodeld in Sources */,
 				0C36E33D2C116779001E38C7 /* Persistence.swift in Sources */,
+				0C138E382C126B9700F7F532 /* AllMapView.swift in Sources */,
 				0C36E36F2C1169AE001E38C7 /* IslandMapView.swift in Sources */,
 				0C36E3732C116AD6001E38C7 /* CoreDataStack.swift in Sources */,
 				0C36E3362C116777001E38C7 /* ContentView.swift in Sources */,
 				0C36E3662C116917001E38C7 /* PirateIsland+CoreDataClass.swift in Sources */,
 				0C36E36D2C116996001E38C7 /* IslandDetailView..swift in Sources */,
 				0C36E3692C11695E001E38C7 /* PirateIslandView.swift in Sources */,
+				0C138E332C12447B00F7F532 /* IslandMap.swift in Sources */,
 				0C36E36B2C11697E001E38C7 /* AddIslandFormView.swift in Sources */,
+				0C138E362C126B8D00F7F532 /* AllIslandMapView.swift in Sources */,
 				0C36E3672C116917001E38C7 /* PirateIsland+CoreDataProperties.swift in Sources */,
 				0C36E3712C1169C8001E38C7 /* GeocodingUtility.swift in Sources */,
 				0C36E3342C116777001E38C7 /* Seas2App.swift in Sources */,
+				0C138E3A2C126BB000F7F532 /* AllMapViewContent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

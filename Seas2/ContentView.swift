@@ -38,6 +38,11 @@ struct ContentView: View {
                 .onDelete(perform: deleteItems)
             }
             .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    NavigationLink(destination: AllIslandMapView()) {
+                        Label("All Islands", systemImage: "map")
+                    }
+                }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     EditButton()
                 }
