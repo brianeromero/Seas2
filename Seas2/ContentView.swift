@@ -9,6 +9,7 @@ import SwiftUI
 import CoreData
 import Combine
 
+
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
@@ -17,21 +18,17 @@ struct ContentView: View {
         animation: .default)
     private var pirateIslands: FetchedResults<PirateIsland>
     
-    @Binding var selectedDestination: Destination?
+    @State private var showAddIslandForm = false
     @State private var islandName = ""
     @State private var islandLocation = ""
-    @State private var lastPirateIsland: PirateIsland?
-    @State private var showMenu = false
-    @State private var activeDestination: Destination?
-    @State private var showAddIslandForm = false
     @State private var enteredBy = ""
-    @State private var geocodingResult: String = ""
+    @State private var gymWebsite = URL(string: "") // Change to URL?
 
     var body: some View {
         NavigationView {
             List {
                 ForEach(pirateIslands) { island in
-                    NavigationLink(destination: IslandDetailView(island: island)) {
+                    NavigationLink(destination: IslandDetailView(island: island, selectedDestination: .constant(nil))) { // Provide a default value for selectedDestination
                         islandRowView(island: island)
                     }
                 }
@@ -58,26 +55,23 @@ struct ContentView: View {
                 AddIslandFormView(
                     islandName: $islandName,
                     islandLocation: $islandLocation,
-                    enteredBy: $enteredBy
+                    enteredBy: $enteredBy,
+                    gymWebsite: $gymWebsite // Corrected binding type to URL?
                 )
             }
+
             .navigationTitle("Islands")
         }
     }
 
     private func islandRowView(island: PirateIsland) -> some View {
         VStack(alignment: .leading) {
-            if let timestamp = island.timestamp {
-                Text("Island at \(timestamp, formatter: dateFormatter)")
-            } else {
-                Text("Unknown Timestamp")
-            }
+            Text("Gym: \(island.islandName ?? "Unknown")")
             if let creationDate = island.creationDate {
                 Text("Added: \(creationDate, formatter: dateFormatter)")
             } else {
                 Text("Unknown Added Date")
             }
-            Text("Gym: \(island.islandName ?? "Unknown")")
         }
     }
 
@@ -104,7 +98,7 @@ struct ContentView: View {
 #if DEBUG
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(selectedDestination: .constant(nil)).environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }
 #endif

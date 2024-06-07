@@ -4,10 +4,12 @@
 //
 //  Created by Brian Romero on 6/5/24.
 //
-import Foundation
 import SwiftUI
 import CoreData
 import Combine
+import CoreLocation
+import Foundation
+import MapKit 
 
 func geocodeAddress(_ address: String, completion: @escaping (Result<(latitude: Double, longitude: Double), Error>) -> Void) {
     let apiKey = "AIzaSyBSGUnuzggEBdGQXuk-6G06OyD7kXxu1VM" // Your Google Maps API key

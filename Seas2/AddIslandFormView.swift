@@ -8,12 +8,15 @@ import SwiftUI
 import CoreData
 import Combine
 import CoreLocation
+import Foundation
+
 
 struct AddIslandFormView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Binding var islandName: String
     @Binding var islandLocation: String
     @Binding var enteredBy: String
+    @Binding var gymWebsite: URL? // Changed to URL? binding
     
     @State private var street: String = ""
     @State private var city: String = ""
@@ -38,6 +41,18 @@ struct AddIslandFormView: View {
                 .onChange(of: city) { _ in updateIslandLocation() }
                 .onChange(of: state) { _ in updateIslandLocation() }
                 .onChange(of: zip) { _ in updateIslandLocation() }
+                
+                Section(header: Text("Instagram link/Facebook/Website(if applicable)")) {
+                    TextField("Links", text: Binding<String>(
+                        get: { gymWebsite?.absoluteString ?? "" },
+                        set: { newValue in
+                            if let url = URL(string: newValue) {
+                                gymWebsite = url
+                            }
+                        }
+                    ))
+                    .keyboardType(.URL)
+                }
                 
                 Section(header: Text("Entered By")) {
                     TextField("Your Name", text: $enteredBy)
@@ -75,7 +90,7 @@ struct AddIslandFormView: View {
                       !enteredBy.isEmpty
         isSaveEnabled = isValid
     }
-    
+
     private func clearFields() {
         islandName = ""
         islandLocation = ""
@@ -84,6 +99,7 @@ struct AddIslandFormView: View {
         city = ""
         state = ""
         zip = ""
+        gymWebsite = nil // Reset to nil
     }
     
     private func geocodeIslandLocation() {
@@ -99,10 +115,8 @@ struct AddIslandFormView: View {
         }
     }
 
-
-
     private func saveIsland(latitude: Double, longitude: Double) {
-        let newIsland: PirateIsland = PirateIsland(context: viewContext)
+        let newIsland = PirateIsland(context: viewContext)
         newIsland.islandName = islandName
         newIsland.islandLocation = islandLocation
         newIsland.enteredBy = enteredBy
@@ -110,6 +124,7 @@ struct AddIslandFormView: View {
         newIsland.timestamp = Date()
         newIsland.latitude = latitude
         newIsland.longitude = longitude
+        newIsland.gymWebsite = gymWebsite // Assign gymWebsite directly
         
         do {
             try viewContext.save()
@@ -122,7 +137,7 @@ struct AddIslandFormView: View {
 
 struct AddIslandFormView_Previews: PreviewProvider {
     static var previews: some View {
-        AddIslandFormView(islandName: .constant(""), islandLocation: .constant(""), enteredBy: .constant(""))
+        AddIslandFormView(islandName: .constant(""), islandLocation: .constant(""), enteredBy: .constant(""), gymWebsite: .constant(nil))
             .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }

@@ -5,10 +5,11 @@
 //  Created by Brian Romero on 6/5/24.
 //
 
-import Foundation
 import SwiftUI
 import CoreData
 import Combine
+import CoreLocation
+import Foundation
 
 struct PersistenceController {
     static let shared = PersistenceController()

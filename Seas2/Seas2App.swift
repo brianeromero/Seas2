@@ -20,23 +20,22 @@ class AppState: ObservableObject {
 struct Seas2App: App {
     let persistenceController = PersistenceController.shared
     
-    @State private var selectedDestination: Destination?
-    @State private var showWelcomeScreen = true
-
+    @StateObject var appState = AppState() // Use @StateObject for AppState
     
     var body: some Scene {
         WindowGroup {
             Group {
-                if showWelcomeScreen {
+                if appState.showWelcomeScreen {
                     PirateIslandView()
                         .onAppear {
                             DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                                showWelcomeScreen = false
+                                appState.showWelcomeScreen = false
                             }
                         }
                 } else {
-                    ContentView(selectedDestination: $selectedDestination)
+                    ContentView() // Remove selectedDestination parameter
                         .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                        .environmentObject(appState) // Inject AppState as environment object
                 }
             }
         }

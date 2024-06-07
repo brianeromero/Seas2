@@ -25,6 +25,7 @@ extension PirateIsland {
     @NSManaged public var islandName: String?
     @NSManaged public var latitude: Double
     @NSManaged public var longitude: Double
+    @NSManaged public var gymWebsite: URL?
 }
 
 extension PirateIsland : Identifiable {
