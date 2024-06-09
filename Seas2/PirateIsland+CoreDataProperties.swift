@@ -23,11 +23,11 @@ extension PirateIsland {
     @NSManaged public var enteredBy: String?
     @NSManaged public var islandLocation: String?
     @NSManaged public var islandName: String?
-    @NSManaged public var latitude: Double
-    @NSManaged public var longitude: Double
+    @NSManaged public var latitude: NSNumber?
+    @NSManaged public var longitude: NSNumber? // Use NSNumber for Objective-C compatibility
     @NSManaged public var gymWebsite: URL?
 }
 
-extension PirateIsland : Identifiable {
+extension PirateIsland: Identifiable {
 
 }

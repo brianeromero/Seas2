@@ -9,7 +9,6 @@ import Foundation
 import SwiftUI
 import MapKit
 
-
 struct AllMapView: View {
     @State private var region: MKCoordinateRegion
     
@@ -19,10 +18,10 @@ struct AllMapView: View {
         self.islands = islands
         
         // Calculate the initial region to fit all annotations
-        if let minLat = islands.map({ $0.latitude }).min(),
-           let maxLat = islands.map({ $0.latitude }).max(),
-           let minLon = islands.map({ $0.longitude }).min(),
-           let maxLon = islands.map({ $0.longitude }).max() {
+        if let minLat = islands.map({ $0.latitude as? Double ?? 0 }).min(),
+           let maxLat = islands.map({ $0.latitude as? Double ?? 0 }).max(),
+           let minLon = islands.map({ $0.longitude as? Double ?? 0 }).min(),
+           let maxLon = islands.map({ $0.longitude as? Double ?? 0 }).max() {
             let center = CLLocationCoordinate2D(latitude: (minLat + maxLat) / 2, longitude: (minLon + maxLon) / 2)
             let span = MKCoordinateSpan(latitudeDelta: (maxLat - minLat) * 1.2, longitudeDelta: (maxLon - minLon) * 1.2)
             
@@ -38,7 +37,7 @@ struct AllMapView: View {
     
     var body: some View {
         Map(coordinateRegion: $region, annotationItems: islands) { island in
-            MapPin(coordinate: CLLocationCoordinate2D(latitude: island.latitude, longitude: island.longitude), tint: .blue)
+            MapPin(coordinate: CLLocationCoordinate2D(latitude: island.latitude as? Double ?? 0, longitude: island.longitude as? Double ?? 0), tint: .blue)
         }
     }
 }

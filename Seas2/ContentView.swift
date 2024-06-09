@@ -9,7 +9,6 @@ import SwiftUI
 import CoreData
 import Combine
 
-
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
@@ -22,7 +21,8 @@ struct ContentView: View {
     @State private var islandName = ""
     @State private var islandLocation = ""
     @State private var enteredBy = ""
-    @State private var gymWebsite = URL(string: "") // Change to URL?
+    @State private var gymWebsite = "" // Change to String
+    @State private var gymWebsiteURL: URL? // New state variable for URL
 
     var body: some View {
         NavigationView {
@@ -56,7 +56,8 @@ struct ContentView: View {
                     islandName: $islandName,
                     islandLocation: $islandLocation,
                     enteredBy: $enteredBy,
-                    gymWebsite: $gymWebsite // Corrected binding type to URL?
+                    gymWebsite: $gymWebsite,
+                    gymWebsiteURL: $gymWebsiteURL // Pass URL binding
                 )
             }
 

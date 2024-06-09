@@ -3,93 +3,131 @@
 //
 //  Created by Brian Romero on 6/5/24.
 //
+//  IslandMapView.swift
+//  Seas2
+//
+//  Created by Brian Romero on 6/5/24.
+//
 import SwiftUI
 import CoreData
 import Combine
 import CoreLocation
 import Foundation
-import MapKit // Add this import
+import MapKit
 
 struct IslandMapView: View {
     let islands: [PirateIsland]
-    @State private var mapURL: URL?
-    @State private var geocodingError: String?
-    
+
+    @State private var selectedIsland: PirateIsland?
+
     var body: some View {
-        VStack(alignment: .leading) {
-            // Display island details and map
-            ForEach(islands) { island in
-                VStack(alignment: .leading) {
-                    // Island details
-                    Text("Gym: \(island.islandName ?? "Unknown")")
-                    Text("Location: \(island.islandLocation ?? "Unknown")")
-                    Text("Entered By: \(island.enteredBy ?? "Unknown")")
-                    Text("Added Date: \(island.creationDate?.formatted() ?? "Unknown")")
-                    Text("Timestamp: \(island.timestamp?.formatted() ?? "Unknown")")
-                    
-                    if let mapURL = mapURL {
-                        Link("Open in Maps", destination: mapURL)
-                    } else if let geocodingError = geocodingError {
-                        Text("Geocoding failed: \(geocodingError)").foregroundColor(.red)
-                    } else {
-                        Text("Loading map link...")
+        NavigationView {
+            VStack(alignment: .leading) {
+                ForEach(islands, id: \.self) { island in
+                    VStack(alignment: .leading) {
+                        // Island details
+                        Text("Gym: \(island.islandName ?? "Unknown")")
+                        Text("Location: \(island.islandLocation ?? "Unknown")")
+                        // Other island details...
+
+                        // Handle map here
+                        if let latitude = island.latitude?.doubleValue, let longitude = island.longitude?.doubleValue {
+                            IslandMapViewMap(
+                                coordinate: CLLocationCoordinate2D(latitude: latitude, longitude: longitude),
+                                islandName: island.islandName ?? "",
+                                islandLocation: island.islandLocation ?? "",
+                                onTap: {
+                                    selectedIsland = island
+                                    openInMaps(island: island)
+                                }
+                            )
+                            .frame(height: 300)
+                            .padding()
+
+                            Button("Open in Maps") {
+                                selectedIsland = island
+                                openInMaps(island: island)
+                            }
+                            .padding(.top, 5)
+                            .foregroundColor(.blue)
+                        } else {
+                            Text("Island location not available")
+                        }
                     }
+                    .padding()
                 }
-                .padding()
-                
-                IslandMap(islands: [island]) // Pass the current island as a single-element array
-                    .frame(height: 300) // Adjust the height as needed
-                    .onAppear {
-                        geocodeAddress(island.islandLocation ?? "", islandName: island.islandName ?? "")
-                    }
             }
+            .padding()
+            .navigationTitle("Island Details")
         }
-        .padding()
-        .navigationTitle("Island Details")
     }
 
-    private func geocodeAddress(_ address: String, islandName: String) {
-        let geocoder = CLGeocoder()
-        geocoder.geocodeAddressString(address) { placemarks, error in
-            if let error = error {
-                self.geocodingError = error.localizedDescription
-                return
-            }
-            if let placemark = placemarks?.first, let location = placemark.location {
-                let coordinate = location.coordinate
-                DispatchQueue.main.async {
-                    // Adjust zoom level and span for the map
-                    let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05) // Adjust these values for desired zoom
-                    let region = MKCoordinateRegion(center: coordinate, span: span)
-                    let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: coordinate))
-                    mapItem.name = islandName // Set island name as the name in Maps
-                    mapURL = mapItem.url // Set the map URL
-                }
+    private func openInMaps(island: PirateIsland) {
+        if let latitude = island.latitude?.doubleValue, let longitude = island.longitude?.doubleValue {
+            let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+            let baseUrl = "http://maps.apple.com/?"
+            let locationString = "\(latitude),\(longitude)"
+            let nameAndLocation = "\(island.islandName ?? ""), \(island.islandLocation ?? "")"
+            let encodedLocation = locationString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+            let encodedNameAndLocation = nameAndLocation.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+            let finalUrlString = baseUrl + "q=\(encodedNameAndLocation)&ll=\(encodedLocation)"
+            if let url = URL(string: finalUrlString) {
+                UIApplication.shared.open(url)
             }
         }
     }
 }
 
-
-
-import SwiftUI
-import CoreData
-
 struct IslandMapView_Previews: PreviewProvider {
     static var previews: some View {
-        let context = PersistenceController.preview.container.viewContext
-        
-        // Fetch pirateIslands using a FetchRequest
-        let fetchRequest: NSFetchRequest<PirateIsland> = PirateIsland.fetchRequest()
-        fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \PirateIsland.timestamp, ascending: true)]
-        
-        // Wrap the FetchRequest in a FetchResults
-        let fetchedPirateIslands = FetchRequest(fetchRequest: fetchRequest)
-        
-        // Convert fetched results to an array
-        let pirateIslandsArray = fetchedPirateIslands.wrappedValue.map { $0 }
-        
-        return IslandMapView(islands: pirateIslandsArray)
-            .environment(\.managedObjectContext, context)
+        IslandMapView(islands: [])
     }
+}
+
+struct IslandMapViewMap: View {
+    var coordinate: CLLocationCoordinate2D
+    var islandName: String
+    var islandLocation: String
+    var onTap: () -> Void // Closure to handle tap
+
+    var body: some View {
+        Map(
+            coordinateRegion: .constant(MKCoordinateRegion(
+                center: coordinate,
+                span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+            )),
+            annotationItems: [CustomMarker(coordinate: coordinate)]
+        ) { marker in
+            MapAnnotation(coordinate: marker.coordinate) {
+                VStack {
+                    Text(islandName)
+                        .font(.headline)
+                        .foregroundColor(.black)
+                        .background(Color.white.opacity(0.7))
+                        .cornerRadius(5)
+                        .padding(5)
+                    Text(islandLocation)
+                        .font(.footnote)
+                        .foregroundColor(.black)
+                        .background(Color.white.opacity(0.7))
+                        .cornerRadius(5)
+                        .padding(5)
+                    Image(systemName: "mappin.circle.fill")
+                        .resizable()
+                        .foregroundColor(.red)
+                        .frame(width: 30, height: 30)
+                        .onTapGesture {
+                            onTap() // Call onTap closure when tapped
+                        }
+                }
+            }
+        }
+        .navigationTitle(islandName)
+    }
+}
+
+// Define CustomMarker conforming to Identifiable protocol
+struct CustomMarker: Identifiable {
+    let id = UUID()
+    var coordinate: CLLocationCoordinate2D
 }

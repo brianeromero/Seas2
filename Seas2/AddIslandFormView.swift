@@ -10,14 +10,13 @@ import Combine
 import CoreLocation
 import Foundation
 
-
 struct AddIslandFormView: View {
-    @Environment(\.managedObjectContext) private var viewContext
     @Binding var islandName: String
     @Binding var islandLocation: String
     @Binding var enteredBy: String
-    @Binding var gymWebsite: URL? // Changed to URL? binding
-    
+    @Binding var gymWebsite: String
+    @Binding var gymWebsiteURL: URL?
+
     @State private var street: String = ""
     @State private var city: String = ""
     @State private var state: String = ""
@@ -25,8 +24,9 @@ struct AddIslandFormView: View {
     
     @State private var isSaveEnabled: Bool = false
     
+    @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.presentationMode) var presentationMode
-    
+
     var body: some View {
         NavigationView {
             Form {
@@ -44,11 +44,10 @@ struct AddIslandFormView: View {
                 
                 Section(header: Text("Instagram link/Facebook/Website(if applicable)")) {
                     TextField("Links", text: Binding<String>(
-                        get: { gymWebsite?.absoluteString ?? "" },
+                        get: { gymWebsite },
                         set: { newValue in
-                            if let url = URL(string: newValue) {
-                                gymWebsite = url
-                            }
+                            gymWebsite = newValue
+                            gymWebsiteURL = URL(string: newValue)
                         }
                     ))
                     .keyboardType(.URL)
@@ -99,7 +98,8 @@ struct AddIslandFormView: View {
         city = ""
         state = ""
         zip = ""
-        gymWebsite = nil // Reset to nil
+        gymWebsite = "" // Reset to empty string
+        gymWebsiteURL = nil // Reset to nil
     }
     
     private func geocodeIslandLocation() {
@@ -122,9 +122,12 @@ struct AddIslandFormView: View {
         newIsland.enteredBy = enteredBy
         newIsland.creationDate = Date() // Set the creationDate to the current date
         newIsland.timestamp = Date()
-        newIsland.latitude = latitude
-        newIsland.longitude = longitude
-        newIsland.gymWebsite = gymWebsite // Assign gymWebsite directly
+        
+        // Convert Double to NSNumber for latitude and longitude
+        newIsland.latitude = NSNumber(value: latitude)
+        newIsland.longitude = NSNumber(value: longitude)
+        
+        newIsland.gymWebsite = gymWebsiteURL // Assign gymWebsiteURL
         
         do {
             try viewContext.save()
@@ -137,7 +140,7 @@ struct AddIslandFormView: View {
 
 struct AddIslandFormView_Previews: PreviewProvider {
     static var previews: some View {
-        AddIslandFormView(islandName: .constant(""), islandLocation: .constant(""), enteredBy: .constant(""), gymWebsite: .constant(nil))
+        AddIslandFormView(islandName: .constant(""), islandLocation: .constant(""), enteredBy: .constant(""), gymWebsite: .constant(""), gymWebsiteURL: .constant(nil))
             .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }

@@ -10,7 +10,6 @@ import Combine
 import CoreLocation
 import Foundation
 
-
 // Define IslandDestination enum
 enum IslandDestination: String, CaseIterable {
     case firstDestination = "Schedule"
@@ -30,11 +29,12 @@ struct IslandDetailView: View {
 }
 
 // IslandDetailContent definition
-// IslandDetailContent definition
 struct IslandDetailContent: View {
     let island: PirateIsland
     @StateObject var coreDataStack = CoreDataStack.shared
     @Binding var selectedDestination: IslandDestination?
+
+    // Use this state to track whether to show the map view
     @State private var showMapView = false
 
     var body: some View {
@@ -99,25 +99,12 @@ struct IslandDetailContent: View {
         .navigationTitle("Island Detail")
     }
 
-
     private func formattedDate(_ date: Date?) -> String? {
         guard let date = date else { return nil }
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
         formatter.timeStyle = .medium
         return formatter.string(from: date)
-    }
-
-    private func destinationView(for destination: IslandDestination) -> some View {
-        switch destination {
-        case .firstDestination:
-            return AnyView(Text("Destination View for \(destination.rawValue)"))
-                .font(.system(size: 16, weight: .light))
-
-        case .secondDestination:
-            return AnyView(EmptyView())
-                .font(.system(size: 16, weight: .light))
-        }
     }
 }
 
@@ -128,7 +115,7 @@ struct IslandDetailView_Previews: PreviewProvider {
         let context = PersistenceController.preview.container.viewContext
         
         // Fetch islands from CoreData
-        if let fetchedIslands = try? context.fetch(PirateIsland.fetchRequest()) {
+        if let fetchedIslands = try? context.fetch(PirateIsland.fetchRequest()) as? [PirateIsland] {
             if let island = fetchedIslands.first {
                 // Use the fetched island
                 return AnyView(
