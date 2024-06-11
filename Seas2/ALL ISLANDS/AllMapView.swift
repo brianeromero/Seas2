@@ -11,33 +11,37 @@ import MapKit
 
 struct AllMapView: View {
     @State private var region: MKCoordinateRegion
-    
     let islands: [PirateIsland]
-    
-    init(islands: [PirateIsland]) {
+    let userLocation: CLLocationCoordinate2D
+
+    init(islands: [PirateIsland], userLocation: CLLocationCoordinate2D) {
         self.islands = islands
+        self.userLocation = userLocation // Initialize userLocation first
         
-        // Calculate the initial region to fit all annotations
-        if let minLat = islands.map({ $0.latitude as? Double ?? 0 }).min(),
-           let maxLat = islands.map({ $0.latitude as? Double ?? 0 }).max(),
-           let minLon = islands.map({ $0.longitude as? Double ?? 0 }).min(),
-           let maxLon = islands.map({ $0.longitude as? Double ?? 0 }).max() {
-            let center = CLLocationCoordinate2D(latitude: (minLat + maxLat) / 2, longitude: (minLon + maxLon) / 2)
-            let span = MKCoordinateSpan(latitudeDelta: (maxLat - minLat) * 1.2, longitudeDelta: (maxLon - minLon) * 1.2)
-            
-            self._region = State(initialValue: MKCoordinateRegion(center: center, span: span))
-        } else {
-            // Default region if no islands are available
-            self._region = State(initialValue: MKCoordinateRegion(
-                center: CLLocationCoordinate2D(latitude: 37.7749, longitude: -122.4194),
-                span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5)
-            ))
+        let initialRegion = MKCoordinateRegion(
+            center: userLocation,
+            span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5)
+        )
+        self._region = State(initialValue: initialRegion)
+    }
+
+    var body: some View {
+        Map(coordinateRegion: $region, annotationItems: islands) { island in
+            MapMarker(coordinate: CLLocationCoordinate2D(
+                latitude: island.latitude?.doubleValue ?? 0,
+                longitude: island.longitude?.doubleValue ?? 0
+            ), tint: .blue)
+        }
+        .onAppear {
+            // Update the region asynchronously
+            DispatchQueue.main.async {
+                updateRegion()
+            }
         }
     }
     
-    var body: some View {
-        Map(coordinateRegion: $region, annotationItems: islands) { island in
-            MapPin(coordinate: CLLocationCoordinate2D(latitude: island.latitude as? Double ?? 0, longitude: island.longitude as? Double ?? 0), tint: .blue)
-        }
+    private func updateRegion() {
+        // Update the region to center on the user's current location
+        region.center = userLocation
     }
 }

@@ -18,17 +18,21 @@ struct AddNewIsland: View {
     @State private var islandName = ""
     @State private var islandLocation = ""
     @State private var enteredBy = ""
-    @State private var gymWebsite: URL?
-    
+    @State private var gymWebsite: String = ""
+    @State private var gymWebsiteURL: URL?
+
     @State private var street = ""
     @State private var city = ""
     @State private var state = ""
     @State private var zip = ""
     
     @State private var isSaveEnabled = false
-    
+    @State private var showAlert = false
+    @State private var alertMessage = ""
+    @State private var selectedProtocol = "http://"
+
     @Environment(\.presentationMode) private var presentationMode
-    
+
     var body: some View {
         NavigationView {
             Form {
@@ -45,14 +49,31 @@ struct AddNewIsland: View {
                 .onChange(of: zip) { _ in updateIslandLocation() }
                 
                 Section(header: Text("Instagram link/Facebook/Website(if applicable)")) {
-                    TextField("Links", text: Binding<String>(
-                        get: { gymWebsite?.absoluteString ?? "" },
-                        set: { newValue in
-                            if let url = URL(string: newValue) {
-                                gymWebsite = url
+                    Picker("Protocol", selection: $selectedProtocol) {
+                        Text("http://").tag("http://")
+                        Text("https://").tag("https://")
+                        Text("ftp://").tag("ftp://")
+                    }
+                    .pickerStyle(SegmentedPickerStyle())
+
+                    TextField("Links", text: $gymWebsite, onEditingChanged: { _ in
+                        if !gymWebsite.isEmpty {
+                            let strippedURL = stripProtocol(from: gymWebsite)
+                            let fullURLString = selectedProtocol + strippedURL
+
+                            if validateURL(fullURLString) {
+                                gymWebsiteURL = URL(string: fullURLString)
+                            } else {
+                                showAlert = true
+                                alertMessage = "Invalid link entry"
+                                gymWebsite = ""
+                                gymWebsiteURL = nil
                             }
+                        } else {
+                            gymWebsiteURL = nil
                         }
-                    ))
+                        validateFields()
+                    })
                     .keyboardType(.URL)
                 }
                 
@@ -64,7 +85,7 @@ struct AddNewIsland: View {
                     if isSaveEnabled {
                         geocodeIslandLocation()
                     } else {
-                        print("Error: Required fields are empty")
+                        print("Error: Required fields are empty or URL is invalid")
                     }
                 }
                 .disabled(!isSaveEnabled)
@@ -76,6 +97,9 @@ struct AddNewIsland: View {
             .navigationBarItems(leading: Button("Cancel") {
                 presentationMode.wrappedValue.dismiss()
             })
+            .alert(isPresented: $showAlert) {
+                Alert(title: Text("Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+            }
         }
         .onReceive(Just(())) { _ in
             validateFields()
@@ -94,12 +118,38 @@ struct AddNewIsland: View {
                       !city.isEmpty &&
                       !state.isEmpty &&
                       !zip.isEmpty &&
-                      !enteredBy.isEmpty
+                      !enteredBy.isEmpty &&
+                      (gymWebsite.isEmpty || gymWebsiteURL != nil)
         isSaveEnabled = isValid
     }
 
+    private func clearFields() {
+        islandName = ""
+        islandLocation = ""
+        enteredBy = ""
+        street = ""
+        city = ""
+        state = ""
+        zip = ""
+        gymWebsite = "" // Reset to empty string
+        gymWebsiteURL = nil // Reset to nil
+    }
+    
     private func geocodeIslandLocation() {
         // Implement geocoding logic
+    }
+
+    private func validateURL(_ urlString: String) -> Bool {
+        let urlPattern = #"^(https?:\/\/)?(www\.)?(facebook\.com|instagram\.com|[\w\-]+\.[\w\-]+)(\/[\w\-\.]*)*\/?$"#
+        return NSPredicate(format: "SELF MATCHES %@", urlPattern).evaluate(with: urlString)
+    }
+
+    private func stripProtocol(from urlString: String) -> String {
+        var strippedString = urlString
+        if let range = strippedString.range(of: "://") {
+            strippedString = String(strippedString[range.upperBound...])
+        }
+        return strippedString
     }
 }
 

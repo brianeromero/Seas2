@@ -21,9 +21,12 @@ struct AddIslandFormView: View {
     @State private var city: String = ""
     @State private var state: String = ""
     @State private var zip: String = ""
-    
+
     @State private var isSaveEnabled: Bool = false
-    
+    @State private var showAlert: Bool = false
+    @State private var alertMessage: String = ""
+    @State private var selectedProtocol: String = "http://"
+
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.presentationMode) var presentationMode
 
@@ -43,13 +46,33 @@ struct AddIslandFormView: View {
                 .onChange(of: zip) { _ in updateIslandLocation() }
                 
                 Section(header: Text("Instagram link/Facebook/Website(if applicable)")) {
-                    TextField("Links", text: Binding<String>(
-                        get: { gymWebsite },
-                        set: { newValue in
-                            gymWebsite = newValue
-                            gymWebsiteURL = URL(string: newValue)
+                    Picker("Protocol", selection: $selectedProtocol) {
+                        Text("http://").tag("http://")
+                        Text("https://").tag("https://")
+                        Text("ftp://").tag("ftp://")
+                    }
+                    .pickerStyle(SegmentedPickerStyle())
+
+                    TextField("Links", text: $gymWebsite, onEditingChanged: { _ in
+                        DispatchQueue.main.async {
+                            if !gymWebsite.isEmpty {
+                                let strippedURL = stripProtocol(from: gymWebsite)
+                                let fullURLString = selectedProtocol + strippedURL
+
+                                if validateURL(fullURLString) {
+                                    gymWebsiteURL = URL(string: fullURLString)
+                                } else {
+                                    showAlert = true
+                                    alertMessage = "Invalid link entry"
+                                    gymWebsite = ""
+                                    gymWebsiteURL = nil
+                                }
+                            } else {
+                                gymWebsiteURL = nil
+                            }
+                            validateFields()
                         }
-                    ))
+                    })
                     .keyboardType(.URL)
                 }
                 
@@ -59,20 +82,29 @@ struct AddIslandFormView: View {
                 
                 Button("Save") {
                     if isSaveEnabled {
+                        print("Save button tapped")
                         geocodeIslandLocation()
                     } else {
-                        print("Error: Required fields are empty")
+                        print("Save button disabled")
+                        print("Error: Required fields are empty or URL is invalid")
                     }
                 }
                 .disabled(!isSaveEnabled)
             }
             .navigationTitle("Add Island")
-            .navigationBarItems(leading: Button("Cancel") {
-                presentationMode.wrappedValue.dismiss()
-            })
+            .navigationBarItems(leading: cancelButton, trailing: EmptyView())
+            .alert(isPresented: $showAlert) {
+                Alert(title: Text("Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+            }
         }
         .onReceive(Just(())) { _ in
             validateFields()
+        }
+    }
+
+    private var cancelButton: some View {
+        Button("Cancel") {
+            presentationMode.wrappedValue.dismiss()
         }
     }
 
@@ -81,60 +113,79 @@ struct AddIslandFormView: View {
     }
     
     private func validateFields() {
-        let isValid = !islandName.isEmpty &&
-                      !street.isEmpty &&
-                      !city.isEmpty &&
-                      !state.isEmpty &&
-                      !zip.isEmpty &&
-                      !enteredBy.isEmpty
-        isSaveEnabled = isValid
+        DispatchQueue.main.async {
+            let isValid = !islandName.isEmpty &&
+                          !street.isEmpty &&
+                          !city.isEmpty &&
+                          !state.isEmpty &&
+                          !zip.isEmpty &&
+                          !enteredBy.isEmpty &&
+                          (gymWebsite.isEmpty || gymWebsiteURL != nil)
+            isSaveEnabled = isValid
+        }
     }
 
     private func clearFields() {
-        islandName = ""
-        islandLocation = ""
-        enteredBy = ""
-        street = ""
-        city = ""
-        state = ""
-        zip = ""
-        gymWebsite = "" // Reset to empty string
-        gymWebsiteURL = nil // Reset to nil
+        DispatchQueue.main.async {
+            islandName = ""
+            islandLocation = ""
+            enteredBy = ""
+            street = ""
+            city = ""
+            state = ""
+            zip = ""
+            gymWebsite = ""
+            gymWebsiteURL = nil
+        }
     }
-    
+
     private func geocodeIslandLocation() {
         geocodeAddress(islandLocation) { result in
-            switch result {
-            case .success(let (latitude, longitude)):
-                saveIsland(latitude: latitude, longitude: longitude)
-                clearFields()
-                presentationMode.wrappedValue.dismiss()
-            case .failure(let error):
-                print("Geocoding failed: \(error.localizedDescription)")
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let (latitude, longitude)):
+                    saveIsland(latitude: latitude, longitude: longitude)
+                    clearFields()
+                    presentationMode.wrappedValue.dismiss()
+                case .failure(let error):
+                    print("Geocoding failed: \(error.localizedDescription)")
+                }
             }
         }
     }
 
     private func saveIsland(latitude: Double, longitude: Double) {
-        let newIsland = PirateIsland(context: viewContext)
-        newIsland.islandName = islandName
-        newIsland.islandLocation = islandLocation
-        newIsland.enteredBy = enteredBy
-        newIsland.creationDate = Date() // Set the creationDate to the current date
-        newIsland.timestamp = Date()
-        
-        // Convert Double to NSNumber for latitude and longitude
-        newIsland.latitude = NSNumber(value: latitude)
-        newIsland.longitude = NSNumber(value: longitude)
-        
-        newIsland.gymWebsite = gymWebsiteURL // Assign gymWebsiteURL
-        
-        do {
-            try viewContext.save()
-            print("Debug - Successfully saved new island")
-        } catch {
-            print("Debug - Failed to save new island: \(error.localizedDescription)")
+        DispatchQueue.main.async {
+            let newIsland = PirateIsland(context: viewContext)
+            newIsland.islandName = islandName
+            newIsland.islandLocation = islandLocation
+            newIsland.enteredBy = enteredBy
+            newIsland.creationDate = Date()
+            newIsland.timestamp = Date()
+            newIsland.latitude = NSNumber(value: latitude)
+            newIsland.longitude = NSNumber(value: longitude)
+            newIsland.gymWebsite = gymWebsiteURL
+
+            do {
+                try viewContext.save()
+                print("Debug - Successfully saved new island")
+            } catch {
+                print("Debug - Failed to save new island: \(error.localizedDescription)")
+            }
         }
+    }
+
+    private func validateURL(_ urlString: String) -> Bool {
+        let urlPattern = #"^(https?:\/\/)?(www\.)?(facebook\.com|instagram\.com|[\w\-]+\.[\w\-]+)(\/[\w\-\.]*)*\/?$"#
+        return NSPredicate(format: "SELF MATCHES %@", urlPattern).evaluate(with: urlString)
+    }
+
+    private func stripProtocol(from urlString: String) -> String {
+        var strippedString = urlString
+        if let range = strippedString.range(of: "://") {
+            strippedString = String(strippedString[range.upperBound...])
+        }
+        return strippedString
     }
 }
 

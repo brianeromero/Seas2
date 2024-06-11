@@ -33,7 +33,7 @@ struct Seas2App: App {
                             }
                         }
                 } else {
-                    ContentView() // Remove selectedDestination parameter
+                    IslandMenu() // Use IslandMenu as the main view
                         .environment(\.managedObjectContext, persistenceController.container.viewContext)
                         .environmentObject(appState) // Inject AppState as environment object
                 }
