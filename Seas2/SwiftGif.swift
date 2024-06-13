@@ -11,47 +11,31 @@ import ImageIO
 
 extension UIImage {
     public class func gifImageWithName(_ name: String) -> UIImage? {
-        guard let bundleURL = Bundle.main
-            .url(forResource: name, withExtension: "gif") else {
-            print("SwiftGif: This image named \"\(name)\" does not exist!")
+        guard let bundleURL = Bundle.main.url(forResource: name, withExtension: "gif"),
+              let imageData = try? Data(contentsOf: bundleURL),
+              let source = CGImageSourceCreateWithData(imageData as CFData, nil) else {
+            print("SwiftGif: This image named \"\(name)\" does not exist or cannot be loaded!")
             return nil
         }
-
-        guard let imageData = try? Data(contentsOf: bundleURL) else {
-            print("SwiftGif: Cannot turn image named \"\(name)\" into NSData")
-            return nil
-        }
-
-        return gifImageWithData(imageData)
-    }
-
-    public class func gifImageWithData(_ data: Data) -> UIImage? {
-        let source = CGImageSourceCreateWithData(data as CFData, nil)
-        return UIImage.animatedImageWithSource(source!)
+        
+        return gifImageWithSource(source)
     }
 
     class func delayForImageAtIndex(_ index: Int, source: CGImageSource!) -> Double {
         var delay = 0.1
-
-        let cfProperties = CGImageSourceCopyPropertiesAtIndex(source, index, nil)
-        let gifProperties: CFDictionary = unsafeBitCast(
-            CFDictionaryGetValue(cfProperties,
-                                 Unmanaged.passUnretained(kCGImagePropertyGIFDictionary).toOpaque()),
-            to: CFDictionary.self)
-
-        var delayObject: AnyObject = unsafeBitCast(
-            CFDictionaryGetValue(gifProperties,
-                                 Unmanaged.passUnretained(kCGImagePropertyGIFUnclampedDelayTime).toOpaque()),
-            to: AnyObject.self)
-
-        if delayObject.doubleValue == 0 {
-            delayObject = unsafeBitCast(
-                CFDictionaryGetValue(gifProperties,
-                                     Unmanaged.passUnretained(kCGImagePropertyGIFDelayTime).toOpaque()),
-                to: AnyObject.self)
+        
+        guard let cfProperties = CGImageSourceCopyPropertiesAtIndex(source, index, nil) as NSDictionary?,
+              let gifProperties = cfProperties.value(forKey: kCGImagePropertyGIFDictionary as String) as? NSDictionary else {
+            return delay
         }
 
-        delay = delayObject as! Double
+        var delayObject: NSNumber? = gifProperties[kCGImagePropertyGIFUnclampedDelayTime as String] as? NSNumber
+
+        if delayObject?.doubleValue == 0 {
+            delayObject = gifProperties[kCGImagePropertyGIFDelayTime as String] as? NSNumber
+        }
+
+        delay = delayObject?.doubleValue ?? 0.1
 
         if delay < 0.1 {
             delay = 0.1
@@ -59,6 +43,7 @@ extension UIImage {
 
         return delay
     }
+
 
     class func gcdForPair(_ a: Int?, _ b: Int?) -> Int {
         var a = a
@@ -100,13 +85,13 @@ extension UIImage {
         var gcd = array[0]
 
         for val in array {
-            gcd = UIImage.gcdForPair(val, gcd)
+            gcd = gcdForPair(val, gcd)
         }
 
         return gcd
     }
 
-    class func animatedImageWithSource(_ source: CGImageSource) -> UIImage? {
+    class func gifImageWithSource(_ source: CGImageSource) -> UIImage? {
         let count = CGImageSourceGetCount(source)
         var images = [CGImage]()
         var delays = [Int]()
@@ -116,15 +101,14 @@ extension UIImage {
                 images.append(image)
             }
 
-            let delaySeconds = UIImage.delayForImageAtIndex(Int(i),
-                                                            source: source)
+            let delaySeconds = delayForImageAtIndex(i, source: source)
             delays.append(Int(delaySeconds * 1000.0))
         }
 
         let duration: Int = {
             var sum = 0
 
-            for val: Int in delays {
+            for val in delays {
                 sum += val
             }
 
@@ -138,16 +122,15 @@ extension UIImage {
         var frameCount: Int
 
         for i in 0..<count {
-            frame = UIImage(cgImage: images[Int(i)])
-            frameCount = Int(delays[Int(i)] / gcd)
+            frame = UIImage(cgImage: images[i])
+            frameCount = Int(delays[i] / gcd)
 
             for _ in 0..<frameCount {
                 frames.append(frame)
             }
         }
 
-        let animation = UIImage.animatedImage(with: frames,
-                                              duration: Double(duration) / 1000.0)
+        let animation = UIImage.animatedImage(with: frames, duration: Double(duration) / 1000.0)
 
         return animation
     }
@@ -163,7 +146,12 @@ struct GIFView: UIViewRepresentable {
     func makeUIView(context: Context) -> UIImageView {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
-        imageView.image = UIImage.gifImageWithName(name)
+        if let gifImage = UIImage.gifImageWithName(name) {
+            imageView.image = gifImage
+        } else {
+            // Handle error if gifImageWithName returns nil
+            print("Failed to load GIF named: \(name)")
+        }
         return imageView
     }
 
