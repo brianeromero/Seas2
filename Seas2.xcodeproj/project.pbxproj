@@ -32,6 +32,9 @@
 		0C36E36F2C1169AE001E38C7 /* IslandMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C36E36E2C1169AD001E38C7 /* IslandMapView.swift */; };
 		0C36E3712C1169C8001E38C7 /* GeocodingUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C36E3702C1169C8001E38C7 /* GeocodingUtility.swift */; };
 		0C36E3732C116AD6001E38C7 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C36E3722C116AD6001E38C7 /* CoreDataStack.swift */; };
+		0C3F61DD2C1B7D42002FE54D /* SwiftGif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3F61DC2C1B7D42002FE54D /* SwiftGif.swift */; };
+		0C3F61DF2C1B803E002FE54D /* GIFBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3F61DE2C1B803E002FE54D /* GIFBackgroundView.swift */; };
+		0C3F61E32C1B8363002FE54D /* flashing.gif in Resources */ = {isa = PBXBuildFile; fileRef = 0C3F61E22C1B8363002FE54D /* flashing.gif */; };
 		0CB360302C16A7FD00376669 /* NotFoundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB3602F2C16A7FD00376669 /* NotFoundView.swift */; };
 		0CB360322C17A2E000376669 /* EditExistingIslandList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB360312C17A2E000376669 /* EditExistingIslandList.swift */; };
 		0CB360342C17E62400376669 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB360332C17E62400376669 /* LocationManager.swift */; };
@@ -84,6 +87,9 @@
 		0C36E36E2C1169AD001E38C7 /* IslandMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IslandMapView.swift; sourceTree = "<group>"; };
 		0C36E3702C1169C8001E38C7 /* GeocodingUtility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeocodingUtility.swift; sourceTree = "<group>"; };
 		0C36E3722C116AD6001E38C7 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		0C3F61DC2C1B7D42002FE54D /* SwiftGif.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftGif.swift; sourceTree = "<group>"; };
+		0C3F61DE2C1B803E002FE54D /* GIFBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFBackgroundView.swift; sourceTree = "<group>"; };
+		0C3F61E22C1B8363002FE54D /* flashing.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = flashing.gif; sourceTree = "<group>"; };
 		0CB3602F2C16A7FD00376669 /* NotFoundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotFoundView.swift; sourceTree = "<group>"; };
 		0CB360312C17A2E000376669 /* EditExistingIslandList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditExistingIslandList.swift; sourceTree = "<group>"; };
 		0CB360332C17E62400376669 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
@@ -160,6 +166,7 @@
 				0C36E36C2C116996001E38C7 /* IslandDetailView..swift */,
 				0C36E36E2C1169AD001E38C7 /* IslandMapView.swift */,
 				0C138E322C12447B00F7F532 /* IslandMap.swift */,
+				0C3F61E22C1B8363002FE54D /* flashing.gif */,
 				0C36E3702C1169C8001E38C7 /* GeocodingUtility.swift */,
 				0C138E3B2C1360C400F7F532 /* AdditionalGymInfo.swift */,
 				0CB3602F2C16A7FD00376669 /* NotFoundView.swift */,
@@ -171,6 +178,8 @@
 				0C36E3372C116779001E38C7 /* Assets.xcassets */,
 				0C138E342C126B6B00F7F532 /* ALL ISLANDS */,
 				0C36E3392C116779001E38C7 /* Preview Content */,
+				0C3F61DC2C1B7D42002FE54D /* SwiftGif.swift */,
+				0C3F61DE2C1B803E002FE54D /* GIFBackgroundView.swift */,
 			);
 			path = Seas2;
 			sourceTree = "<group>";
@@ -304,6 +313,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C3F61E32C1B8363002FE54D /* flashing.gif in Resources */,
 				0C36E3632C11685D001E38C7 /* Assets.xcassets in Resources */,
 				0C36E33B2C116779001E38C7 /* Preview Assets.xcassets in Resources */,
 			);
@@ -338,10 +348,12 @@
 				0CB360302C16A7FD00376669 /* NotFoundView.swift in Sources */,
 				0C36E3732C116AD6001E38C7 /* CoreDataStack.swift in Sources */,
 				0CB360342C17E62400376669 /* LocationManager.swift in Sources */,
+				0C3F61DF2C1B803E002FE54D /* GIFBackgroundView.swift in Sources */,
 				0C138E402C13DFC800F7F532 /* AddNewIsland.swift in Sources */,
 				0C138E422C13E05100F7F532 /* EditExistingIsland.swift in Sources */,
 				0C36E3362C116777001E38C7 /* ContentView.swift in Sources */,
 				0C36E3662C116917001E38C7 /* PirateIsland+CoreDataClass.swift in Sources */,
+				0C3F61DD2C1B7D42002FE54D /* SwiftGif.swift in Sources */,
 				0C36E36D2C116996001E38C7 /* IslandDetailView..swift in Sources */,
 				0C138E3C2C1360C400F7F532 /* AdditionalGymInfo.swift in Sources */,
 				0CB360322C17A2E000376669 /* EditExistingIslandList.swift in Sources */,
