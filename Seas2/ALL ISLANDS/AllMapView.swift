@@ -9,6 +9,13 @@ import Foundation
 import SwiftUI
 import MapKit
 
+// Custom Equatable conformance for CLLocationCoordinate2D
+extension CLLocationCoordinate2D: Equatable {
+    public static func == (lhs: CLLocationCoordinate2D, rhs: CLLocationCoordinate2D) -> Bool {
+        return lhs.latitude == rhs.latitude && lhs.longitude == rhs.longitude
+    }
+}
+
 struct AllMapView: View {
     @State private var region: MKCoordinateRegion
     let islands: [PirateIsland]
@@ -16,11 +23,11 @@ struct AllMapView: View {
 
     init(islands: [PirateIsland], userLocation: CLLocationCoordinate2D) {
         self.islands = islands
-        self.userLocation = userLocation // Initialize userLocation first
+        self.userLocation = userLocation
         
         let initialRegion = MKCoordinateRegion(
             center: userLocation,
-            span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5)
+            span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
         )
         self._region = State(initialValue: initialRegion)
     }
@@ -33,15 +40,19 @@ struct AllMapView: View {
             ), tint: .blue)
         }
         .onAppear {
-            // Update the region asynchronously
-            DispatchQueue.main.async {
-                updateRegion()
-            }
+            updateRegion()
+            print("Map appeared with region: \(region)")
+        }
+        .onChange(of: region.center) { newCenter in
+            print("Region center changed to: \(newCenter.latitude), \(newCenter.longitude)")
         }
     }
     
     private func updateRegion() {
-        // Update the region to center on the user's current location
-        region.center = userLocation
+        region = MKCoordinateRegion(
+            center: userLocation,
+            span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+        )
+        print("Updated region to: \(region.center.latitude), \(region.center.longitude)")
     }
 }
