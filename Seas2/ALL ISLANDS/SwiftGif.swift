@@ -146,12 +146,16 @@ struct GIFView: UIViewRepresentable {
     func makeUIView(context: Context) -> UIImageView {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
-        if let gifImage = UIImage.gifImageWithName(name) {
-            imageView.image = gifImage
-        } else {
-            // Handle error if gifImageWithName returns nil
-            print("Failed to load GIF named: \(name)")
+        
+        DispatchQueue.main.async {
+            if let gifImage = UIImage.gifImageWithName(name) {
+                imageView.image = gifImage
+            } else {
+                // Handle error if gifImageWithName returns nil
+                print("Failed to load GIF named: \(name)")
+            }
         }
+
         return imageView
     }
 

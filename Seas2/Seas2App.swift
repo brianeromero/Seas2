@@ -15,7 +15,6 @@ class AppState: ObservableObject {
     @Published var selectedDestination: Destination?
 }
 
-
 @main
 struct Seas2App: App {
     let persistenceController = PersistenceController.shared
@@ -36,6 +35,10 @@ struct Seas2App: App {
                     IslandMenu() // Use IslandMenu as the main view
                         .environment(\.managedObjectContext, persistenceController.container.viewContext)
                         .environmentObject(appState) // Inject AppState as environment object
+                        .onAppear {
+                            let sceneLoader = SceneLoader()
+                            sceneLoader.loadScene()
+                        }
                 }
             }
         }

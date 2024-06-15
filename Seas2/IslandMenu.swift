@@ -18,7 +18,6 @@ struct IslandMenu: View {
     @StateObject private var locationManager = LocationManager()
     @Environment(\.managedObjectContext) private var viewContext
 
-    @State private var navigateToEdit: Bool = false
     @State private var showAlert = false
     @State private var alertMessage = ""
 
@@ -89,6 +88,10 @@ struct IslandMenu: View {
             return AnyView(NavigationLink(destination: AllIslandMapView()) {
                 Text(menuItem)
             })
+        case "Enter Zip Code":
+            return AnyView(NavigationLink(destination: EnterZipCodeView()) {
+                Text(menuItem)
+            })
         default:
             return AnyView(Button(action: {
                 print("Selected: \(menuItem)")
@@ -100,11 +103,10 @@ struct IslandMenu: View {
 
     // Fetch islands near the given location
     private func fetchIslandsNear(location: CLLocationCoordinate2D) {
-        // Fetch islands near the given location using Core Data fetch request
-        // Example:
-        // You need to replace this with your actual fetch request to get islands near the location
-        // For demonstration, I'm returning an empty array here
-        let islandsNearLocation = fetchIslandsNear(location: location)
+        // Adjust the distance as needed, this is just an example
+        let distance: CLLocationDistance = 1000 // 1000 meters (1km)
+        
+        let islandsNearLocation = PirateIsland.fetchIslandsNear(location: location, within: distance, in: viewContext)
         print(islandsNearLocation)
     }
 }

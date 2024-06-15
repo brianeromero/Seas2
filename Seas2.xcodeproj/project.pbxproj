@@ -35,6 +35,11 @@
 		0C3F61DD2C1B7D42002FE54D /* SwiftGif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3F61DC2C1B7D42002FE54D /* SwiftGif.swift */; };
 		0C3F61DF2C1B803E002FE54D /* GIFBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3F61DE2C1B803E002FE54D /* GIFBackgroundView.swift */; };
 		0C3F61E32C1B8363002FE54D /* flashing.gif in Resources */ = {isa = PBXBuildFile; fileRef = 0C3F61E22C1B8363002FE54D /* flashing.gif */; };
+		0C3F61E52C1CA56C002FE54D /* EnterZipCodeView..swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3F61E42C1CA56C002FE54D /* EnterZipCodeView..swift */; };
+		0C3F61E72C1CAD3F002FE54D /* SceneLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3F61E62C1CAD3F002FE54D /* SceneLoader.swift */; };
+		0C3F61E92C1CAD69002FE54D /* RenderingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3F61E82C1CAD69002FE54D /* RenderingManager.swift */; };
+		0C3F61EB2C1CAFD9002FE54D /* SharedTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3F61EA2C1CAFD9002FE54D /* SharedTypes.swift */; };
+		0C4FF7612C1D6E8200181210 /* CustomMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4FF7602C1D6E8200181210 /* CustomMarkerView.swift */; };
 		0CB360302C16A7FD00376669 /* NotFoundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB3602F2C16A7FD00376669 /* NotFoundView.swift */; };
 		0CB360322C17A2E000376669 /* EditExistingIslandList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB360312C17A2E000376669 /* EditExistingIslandList.swift */; };
 		0CB360342C17E62400376669 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB360332C17E62400376669 /* LocationManager.swift */; };
@@ -90,6 +95,11 @@
 		0C3F61DC2C1B7D42002FE54D /* SwiftGif.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftGif.swift; sourceTree = "<group>"; };
 		0C3F61DE2C1B803E002FE54D /* GIFBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFBackgroundView.swift; sourceTree = "<group>"; };
 		0C3F61E22C1B8363002FE54D /* flashing.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = flashing.gif; sourceTree = "<group>"; };
+		0C3F61E42C1CA56C002FE54D /* EnterZipCodeView..swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnterZipCodeView..swift; sourceTree = "<group>"; };
+		0C3F61E62C1CAD3F002FE54D /* SceneLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneLoader.swift; sourceTree = "<group>"; };
+		0C3F61E82C1CAD69002FE54D /* RenderingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderingManager.swift; sourceTree = "<group>"; };
+		0C3F61EA2C1CAFD9002FE54D /* SharedTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedTypes.swift; sourceTree = "<group>"; };
+		0C4FF7602C1D6E8200181210 /* CustomMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMarkerView.swift; sourceTree = "<group>"; };
 		0CB3602F2C16A7FD00376669 /* NotFoundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotFoundView.swift; sourceTree = "<group>"; };
 		0CB360312C17A2E000376669 /* EditExistingIslandList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditExistingIslandList.swift; sourceTree = "<group>"; };
 		0CB360332C17E62400376669 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
@@ -127,6 +137,13 @@
 				0C138E372C126B9700F7F532 /* AllMapView.swift */,
 				0C138E392C126BAF00F7F532 /* AllMapViewContent.swift */,
 				0CB360332C17E62400376669 /* LocationManager.swift */,
+				0C3F61E42C1CA56C002FE54D /* EnterZipCodeView..swift */,
+				0C3F61E62C1CAD3F002FE54D /* SceneLoader.swift */,
+				0C3F61E82C1CAD69002FE54D /* RenderingManager.swift */,
+				0C3F61DE2C1B803E002FE54D /* GIFBackgroundView.swift */,
+				0C3F61DC2C1B7D42002FE54D /* SwiftGif.swift */,
+				0C3F61EA2C1CAFD9002FE54D /* SharedTypes.swift */,
+				0C4FF7602C1D6E8200181210 /* CustomMarkerView.swift */,
 			);
 			path = "ALL ISLANDS";
 			sourceTree = "<group>";
@@ -178,8 +195,6 @@
 				0C36E3372C116779001E38C7 /* Assets.xcassets */,
 				0C138E342C126B6B00F7F532 /* ALL ISLANDS */,
 				0C36E3392C116779001E38C7 /* Preview Content */,
-				0C3F61DC2C1B7D42002FE54D /* SwiftGif.swift */,
-				0C3F61DE2C1B803E002FE54D /* GIFBackgroundView.swift */,
 			);
 			path = Seas2;
 			sourceTree = "<group>";
@@ -345,14 +360,17 @@
 				0C36E33D2C116779001E38C7 /* Persistence.swift in Sources */,
 				0C138E382C126B9700F7F532 /* AllMapView.swift in Sources */,
 				0C36E36F2C1169AE001E38C7 /* IslandMapView.swift in Sources */,
+				0C4FF7612C1D6E8200181210 /* CustomMarkerView.swift in Sources */,
 				0CB360302C16A7FD00376669 /* NotFoundView.swift in Sources */,
 				0C36E3732C116AD6001E38C7 /* CoreDataStack.swift in Sources */,
+				0C3F61EB2C1CAFD9002FE54D /* SharedTypes.swift in Sources */,
 				0CB360342C17E62400376669 /* LocationManager.swift in Sources */,
 				0C3F61DF2C1B803E002FE54D /* GIFBackgroundView.swift in Sources */,
 				0C138E402C13DFC800F7F532 /* AddNewIsland.swift in Sources */,
 				0C138E422C13E05100F7F532 /* EditExistingIsland.swift in Sources */,
 				0C36E3362C116777001E38C7 /* ContentView.swift in Sources */,
 				0C36E3662C116917001E38C7 /* PirateIsland+CoreDataClass.swift in Sources */,
+				0C3F61E52C1CA56C002FE54D /* EnterZipCodeView..swift in Sources */,
 				0C3F61DD2C1B7D42002FE54D /* SwiftGif.swift in Sources */,
 				0C36E36D2C116996001E38C7 /* IslandDetailView..swift in Sources */,
 				0C138E3C2C1360C400F7F532 /* AdditionalGymInfo.swift in Sources */,
@@ -363,7 +381,9 @@
 				0C138E362C126B8D00F7F532 /* AllIslandMapView.swift in Sources */,
 				0C36E3672C116917001E38C7 /* PirateIsland+CoreDataProperties.swift in Sources */,
 				0C36E3712C1169C8001E38C7 /* GeocodingUtility.swift in Sources */,
+				0C3F61E72C1CAD3F002FE54D /* SceneLoader.swift in Sources */,
 				0C36E3342C116777001E38C7 /* Seas2App.swift in Sources */,
+				0C3F61E92C1CAD69002FE54D /* RenderingManager.swift in Sources */,
 				0C138E3A2C126BB000F7F532 /* AllMapViewContent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
