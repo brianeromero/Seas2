@@ -68,6 +68,12 @@ struct IslandMenu: View {
                             .foregroundColor(.blue)
                     }
                     .padding(.leading, 2)
+                    
+                    NavigationLink(destination: FAQnDisclaimerMenuView()) {
+                        Text("FAQ & Disclaimer Info")
+                            .foregroundColor(.blue)
+                    }
+                    .padding(.leading, 2)
                 }
                 .padding(.horizontal, 20)
                 .navigationBarTitle("Welcome to Island Locator", displayMode: .inline)

@@ -48,6 +48,12 @@
 		0CE6486D2C21E6A3007C47DD /* YOu are HEre.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CE6486B2C21E6A3007C47DD /* YOu are HEre.png */; };
 		0CE6486E2C21E6A3007C47DD /* YOu are HEre2.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CE6486C2C21E6A3007C47DD /* YOu are HEre2.png */; };
 		0CE648702C21ECD4007C47DD /* CustomPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE6486F2C21ECD4007C47DD /* CustomPin.swift */; };
+		0CE648732C21F333007C47DD /* Who We Are.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE648722C21F333007C47DD /* Who We Are.swift */; };
+		0CE648752C21F34F007C47DD /* Disclaimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE648742C21F34F007C47DD /* Disclaimer.swift */; };
+		0CE648772C21F35A007C47DD /* FAQ.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE648762C21F35A007C47DD /* FAQ.swift */; };
+		0CE648792C22351E007C47DD /* FAQnDisclaimerMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE648782C22351E007C47DD /* FAQnDisclaimerMenu.swift */; };
+		0CE6487C2C2239A8007C47DD /* MF_little_trans .png in Resources */ = {isa = PBXBuildFile; fileRef = 0CE6487A2C2239A7007C47DD /* MF_little_trans .png */; };
+		0CE6487D2C2239A8007C47DD /* MF_little .png in Resources */ = {isa = PBXBuildFile; fileRef = 0CE6487B2C2239A8007C47DD /* MF_little .png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -113,6 +119,12 @@
 		0CE6486B2C21E6A3007C47DD /* YOu are HEre.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "YOu are HEre.png"; sourceTree = "<group>"; };
 		0CE6486C2C21E6A3007C47DD /* YOu are HEre2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "YOu are HEre2.png"; sourceTree = "<group>"; };
 		0CE6486F2C21ECD4007C47DD /* CustomPin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPin.swift; sourceTree = "<group>"; };
+		0CE648722C21F333007C47DD /* Who We Are.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Who We Are.swift"; sourceTree = "<group>"; };
+		0CE648742C21F34F007C47DD /* Disclaimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Disclaimer.swift; sourceTree = "<group>"; };
+		0CE648762C21F35A007C47DD /* FAQ.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQ.swift; sourceTree = "<group>"; };
+		0CE648782C22351E007C47DD /* FAQnDisclaimerMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQnDisclaimerMenu.swift; sourceTree = "<group>"; };
+		0CE6487A2C2239A7007C47DD /* MF_little_trans .png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MF_little_trans .png"; sourceTree = "<group>"; };
+		0CE6487B2C2239A8007C47DD /* MF_little .png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MF_little .png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -197,6 +209,8 @@
 				0C138E322C12447B00F7F532 /* IslandMap.swift */,
 				0C3F61E22C1B8363002FE54D /* flashing.gif */,
 				0CCD05A32C20B9ED00E34084 /* flashing2.gif */,
+				0CE6487B2C2239A8007C47DD /* MF_little .png */,
+				0CE6487A2C2239A7007C47DD /* MF_little_trans .png */,
 				0CE6486B2C21E6A3007C47DD /* YOu are HEre.png */,
 				0CE6486C2C21E6A3007C47DD /* YOu are HEre2.png */,
 				0C36E3702C1169C8001E38C7 /* GeocodingUtility.swift */,
@@ -209,6 +223,7 @@
 				0C36E3722C116AD6001E38C7 /* CoreDataStack.swift */,
 				0C36E3372C116779001E38C7 /* Assets.xcassets */,
 				0C138E342C126B6B00F7F532 /* ALL ISLANDS */,
+				0CE648712C21F313007C47DD /* FAQ n Disclaimer stuff */,
 				0C36E3392C116779001E38C7 /* Preview Content */,
 			);
 			path = Seas2;
@@ -237,6 +252,17 @@
 				0C36E3552C116779001E38C7 /* Seas2UITestsLaunchTests.swift */,
 			);
 			path = Seas2UITests;
+			sourceTree = "<group>";
+		};
+		0CE648712C21F313007C47DD /* FAQ n Disclaimer stuff */ = {
+			isa = PBXGroup;
+			children = (
+				0CE648782C22351E007C47DD /* FAQnDisclaimerMenu.swift */,
+				0CE648722C21F333007C47DD /* Who We Are.swift */,
+				0CE648742C21F34F007C47DD /* Disclaimer.swift */,
+				0CE648762C21F35A007C47DD /* FAQ.swift */,
+			);
+			path = "FAQ n Disclaimer stuff";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -344,10 +370,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				0CCD05A42C20B9ED00E34084 /* flashing2.gif in Resources */,
+				0CE6487D2C2239A8007C47DD /* MF_little .png in Resources */,
 				0C3F61E32C1B8363002FE54D /* flashing.gif in Resources */,
 				0C36E3632C11685D001E38C7 /* Assets.xcassets in Resources */,
 				0C36E33B2C116779001E38C7 /* Preview Assets.xcassets in Resources */,
 				0CE6486D2C21E6A3007C47DD /* YOu are HEre.png in Resources */,
+				0CE6487C2C2239A8007C47DD /* MF_little_trans .png in Resources */,
 				0CE6486E2C21E6A3007C47DD /* YOu are HEre2.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -380,6 +408,7 @@
 				0C138E382C126B9700F7F532 /* AllMapView.swift in Sources */,
 				0C36E36F2C1169AE001E38C7 /* IslandMapView.swift in Sources */,
 				0C4FF7612C1D6E8200181210 /* CustomMarkerView.swift in Sources */,
+				0CE648792C22351E007C47DD /* FAQnDisclaimerMenu.swift in Sources */,
 				0CB360302C16A7FD00376669 /* NotFoundView.swift in Sources */,
 				0C36E3732C116AD6001E38C7 /* CoreDataStack.swift in Sources */,
 				0C3F61EB2C1CAFD9002FE54D /* SharedTypes.swift in Sources */,
@@ -387,9 +416,11 @@
 				0C3F61DF2C1B803E002FE54D /* GIFBackgroundView.swift in Sources */,
 				0CE648702C21ECD4007C47DD /* CustomPin.swift in Sources */,
 				0C138E402C13DFC800F7F532 /* AddNewIsland.swift in Sources */,
+				0CE648752C21F34F007C47DD /* Disclaimer.swift in Sources */,
 				0CCD05A62C20E9AE00E34084 /* CustomMapMarker.swift in Sources */,
 				0C138E422C13E05100F7F532 /* EditExistingIsland.swift in Sources */,
 				0C36E3362C116777001E38C7 /* ContentView.swift in Sources */,
+				0CE648772C21F35A007C47DD /* FAQ.swift in Sources */,
 				0C36E3662C116917001E38C7 /* PirateIsland+CoreDataClass.swift in Sources */,
 				0C3F61E52C1CA56C002FE54D /* EnterZipCodeView..swift in Sources */,
 				0C3F61DD2C1B7D42002FE54D /* SwiftGif.swift in Sources */,
@@ -402,6 +433,7 @@
 				0C138E362C126B8D00F7F532 /* AllIslandMapView.swift in Sources */,
 				0C36E3672C116917001E38C7 /* PirateIsland+CoreDataProperties.swift in Sources */,
 				0C36E3712C1169C8001E38C7 /* GeocodingUtility.swift in Sources */,
+				0CE648732C21F333007C47DD /* Who We Are.swift in Sources */,
 				0C3F61E72C1CAD3F002FE54D /* SceneLoader.swift in Sources */,
 				0C36E3342C116777001E38C7 /* Seas2App.swift in Sources */,
 				0C3F61E92C1CAD69002FE54D /* RenderingManager.swift in Sources */,
