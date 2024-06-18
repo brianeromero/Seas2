@@ -4,19 +4,22 @@
 //
 //  Created by Brian Romero on 6/7/24.
 //
+
+
 import Foundation
 import CoreLocation
 
 class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
-    private let locationManager = CLLocationManager()
-    @Published var userLocation: CLLocationCoordinate2D?
+    private var locationManager = CLLocationManager()
+    @Published var userLocation: CLLocation?
 
     override init() {
         super.init()
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+        self.locationManager.delegate = self
+        self.locationManager.requestWhenInUseAuthorization()
+        self.locationManager.startUpdatingLocation()
     }
-    
+
     func requestLocation() {
         checkLocationAuthorization()
     }
@@ -36,9 +39,9 @@ class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.first {
-            userLocation = location.coordinate
-            locationManager.stopUpdatingLocation()
+        guard let location = locations.last else { return }
+        DispatchQueue.main.async {
+            self.userLocation = location
         }
     }
     

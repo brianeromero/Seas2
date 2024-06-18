@@ -13,7 +13,6 @@ struct MenuItem: Identifiable {
     let title: String
     let subMenuItems: [String]?
 }
-
 struct IslandMenu: View {
     @StateObject private var locationManager = LocationManager()
     @Environment(\.managedObjectContext) private var viewContext
@@ -23,16 +22,16 @@ struct IslandMenu: View {
 
     let menuItems: [MenuItem] = [
         MenuItem(title: "Manage Gyms", subMenuItems: ["Add New Gym", "Update Existing"]),
-        MenuItem(title: "Find Surrounding Gyms", subMenuItems: ["Near Me (use current location)", "Enter Zip Code"]),
+        MenuItem(title: "Find Surrounding Gyms", subMenuItems: ["All Entered Locations", "Near Me (use current location)", "Enter Zip Code"]),
     ]
 
     var body: some View {
         NavigationView {
             ZStack {
-                // Display GIF as background
-                GIFView(name: "flashing")
-                    .frame(width: 500, height: 450) // Adjust size
-                    .offset(x: 100, y: -150) // Adjust position
+                // Your existing content
+                GIFView(name: "flashing2")
+                    .frame(width: 500, height: 450)
+                    .offset(x: 100, y: -150)
 
                 VStack(alignment: .leading, spacing: 20) {
                     Text("Main Menu")
@@ -40,72 +39,69 @@ struct IslandMenu: View {
                         .bold()
                         .padding(.top, 10)
 
-                    // Iterate through menu items
                     ForEach(menuItems) { menuItem in
                         VStack(alignment: .leading, spacing: 10) {
                             Text(menuItem.title)
                                 .font(.headline)
                                 .padding(.bottom, 20)
 
-                            // Iterate through submenu items
                             if let subMenuItems = menuItem.subMenuItems {
                                 ForEach(subMenuItems, id: \.self) { subMenuItem in
-                                    destinationView(for: subMenuItem)
-                                        .foregroundColor(.blue)
-                                        .padding(.leading, 2)
+                                    NavigationLink(destination: destinationView(for: subMenuItem).padding(.leading, 2)) {
+                                        if subMenuItem == "All Entered Locations" {
+                                            Label(subMenuItem, systemImage: "map")
+                                                .foregroundColor(.blue)
+                                        } else {
+                                            Text(subMenuItem)
+                                                .foregroundColor(.blue)
+                                        }
+                                    }
                                 }
                             }
                         }
                         .padding(.bottom, 20)
                     }
+
+                    // Link to ContentView
+                    NavigationLink(destination: ContentView()) {
+                        Text("ContentView")
+                            .foregroundColor(.blue)
+                    }
+                    .padding(.leading, 2)
                 }
                 .padding(.horizontal, 20)
                 .navigationBarTitle("Welcome to Island Locator", displayMode: .inline)
                 .padding(.leading, -100)
             }
-            .edgesIgnoringSafeArea(.all) // Make sure GIF fills the screen
-        }
-        .alert(isPresented: $showAlert) {
-            Alert(title: Text("Location Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+            .edgesIgnoringSafeArea(.all)
+            .alert(isPresented: $showAlert) {
+                Alert(title: Text("Location Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+            }
         }
     }
 
-    // Determine destination view based on menu item
+    @ViewBuilder
     private func destinationView(for menuItem: String) -> some View {
         switch menuItem {
         case "Add New Gym":
-            return AnyView(NavigationLink(destination: AddNewIsland()) {
-                Text(menuItem)
-            })
+            AddNewIsland()
         case "Update Existing":
-            return AnyView(NavigationLink(destination: EditExistingIslandList()) {
-                Text(menuItem)
+            EditExistingIslandList().onAppear {
+                fetchIslandsNear(location: locationManager.userLocation?.coordinate ?? CLLocationCoordinate2D(latitude: 0, longitude: 0))
             }
-            .onTapGesture {
-                fetchIslandsNear(location: locationManager.userLocation ?? CLLocationCoordinate2D(latitude: 0, longitude: 0))
-            })
+        case "All Entered Locations":
+            AllEnteredLocations()
         case "Near Me (use current location)":
-            return AnyView(NavigationLink(destination: AllIslandMapView()) {
-                Text(menuItem)
-            })
+            ConsolidatedIslandMapView()
         case "Enter Zip Code":
-            return AnyView(NavigationLink(destination: EnterZipCodeView()) {
-                Text(menuItem)
-            })
+            EnterZipCodeView()
         default:
-            return AnyView(Button(action: {
-                print("Selected: \(menuItem)")
-            }) {
-                Text(menuItem)
-            })
+            EmptyView()
         }
     }
-
-    // Fetch islands near the given location
+    
     private func fetchIslandsNear(location: CLLocationCoordinate2D) {
-        // Adjust the distance as needed, this is just an example
-        let distance: CLLocationDistance = 1000 // 1000 meters (1km)
-        
+        let distance: CLLocationDistance = 1000
         let islandsNearLocation = PirateIsland.fetchIslandsNear(location: location, within: distance, in: viewContext)
         print(islandsNearLocation)
     }

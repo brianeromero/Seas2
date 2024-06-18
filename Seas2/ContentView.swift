@@ -36,7 +36,7 @@ struct ContentView: View {
             }
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
-                    NavigationLink(destination: AllIslandMapView()) {
+                    NavigationLink(destination: ConsolidatedIslandMapView()) {
                         Label("All Islands", systemImage: "map")
                     }
                 }

@@ -33,12 +33,24 @@ struct AllMapView: View {
     }
 
     var body: some View {
-        Map(coordinateRegion: $region, annotationItems: islands) { island in
-            MapMarker(coordinate: CLLocationCoordinate2D(
-                latitude: island.latitude?.doubleValue ?? 0,
-                longitude: island.longitude?.doubleValue ?? 0
-            ), tint: .blue)
+        Map(coordinateRegion: $region, annotationItems: islands.map {
+            CustomMapMarker(coordinate: CLLocationCoordinate2D(latitude: $0.latitude?.doubleValue ?? 0, longitude: $0.longitude?.doubleValue ?? 0), title: $0.islandName ?? "")
+        }) { location in
+            MapAnnotation(coordinate: location.coordinate) {
+                VStack {
+                    Text(location.title)
+                        .font(.caption)
+                        .padding(5)
+                        .background(Color.white)
+                        .cornerRadius(5)
+                        .shadow(radius: 3)
+                    Image(systemName: "mappin.circle.fill")
+                        .foregroundColor(.blue)
+                }
+            }
         }
+        .frame(height: 300)
+        .padding()
         .onAppear {
             updateRegion()
             print("Map appeared with region: \(region)")
