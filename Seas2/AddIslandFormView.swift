@@ -91,7 +91,7 @@ struct AddIslandFormView: View {
                 }
                 .disabled(!isSaveEnabled)
             }
-            .navigationTitle("Add Island")
+            .navigationTitle("Add Gym/Dojo/Traning Center")
             .navigationBarItems(leading: cancelButton, trailing: EmptyView())
             .alert(isPresented: $showAlert) {
                 Alert(title: Text("Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")))

@@ -47,7 +47,7 @@ struct ConsolidatedIslandMapView: View {
                                     .background(Color.white)
                                     .cornerRadius(5)
                                     .shadow(radius: 3)
-                                Image(systemName: location.title == "You are Here" ? "arrowshape.down.fill" : "mappin.circle.fill")
+                                Image(systemName: location.title == "You are Here" ? "figure.wrestling" : "mappin.circle.fill")
                                     .foregroundColor(location.title == "You are Here" ? .red : .blue)
                             }
                         }
@@ -61,10 +61,10 @@ struct ConsolidatedIslandMapView: View {
 
                 } else {
                     Text("Fetching user location...")
-                        .navigationTitle("Island Map")
+                        .navigationTitle("Locations Near Me")
                 }
             }
-            .navigationTitle("Island Map")
+            .navigationTitle("Locations Near Me")
             .onAppear {
                 if let userLocation = locationManager.userLocation {
                     updateRegion(userLocation, radius: selectedRadius)

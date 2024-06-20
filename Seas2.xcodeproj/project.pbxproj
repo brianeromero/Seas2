@@ -42,7 +42,6 @@
 		0CB360302C16A7FD00376669 /* NotFoundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB3602F2C16A7FD00376669 /* NotFoundView.swift */; };
 		0CB360322C17A2E000376669 /* EditExistingIslandList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB360312C17A2E000376669 /* EditExistingIslandList.swift */; };
 		0CB360342C17E62400376669 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB360332C17E62400376669 /* LocationManager.swift */; };
-		0CCD05A42C20B9ED00E34084 /* flashing2.gif in Resources */ = {isa = PBXBuildFile; fileRef = 0CCD05A32C20B9ED00E34084 /* flashing2.gif */; };
 		0CCD05A62C20E9AE00E34084 /* CustomMapMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CCD05A52C20E9AE00E34084 /* CustomMapMarker.swift */; };
 		0CCD05A82C20EA7F00E34084 /* AllEnteredLocations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CCD05A72C20EA7F00E34084 /* AllEnteredLocations.swift */; };
 		0CE6486D2C21E6A3007C47DD /* YOu are HEre.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CE6486B2C21E6A3007C47DD /* YOu are HEre.png */; };
@@ -54,6 +53,15 @@
 		0CE648792C22351E007C47DD /* FAQnDisclaimerMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE648782C22351E007C47DD /* FAQnDisclaimerMenu.swift */; };
 		0CE6487C2C2239A8007C47DD /* MF_little_trans .png in Resources */ = {isa = PBXBuildFile; fileRef = 0CE6487A2C2239A7007C47DD /* MF_little_trans .png */; };
 		0CE6487D2C2239A8007C47DD /* MF_little .png in Resources */ = {isa = PBXBuildFile; fileRef = 0CE6487B2C2239A8007C47DD /* MF_little .png */; };
+		0CEB8DA52C248F250094C6C6 /* flashing2.gif in Resources */ = {isa = PBXBuildFile; fileRef = 0CEB8DA42C248F250094C6C6 /* flashing2.gif */; };
+		0CEB8DA82C24909C0094C6C6 /* Search By Day of the Week.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CEB8DA72C24909C0094C6C6 /* Search By Day of the Week.swift */; };
+		0CEB8DAC2C2499AE0094C6C6 /* GymMatReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CEB8DAB2C2499AE0094C6C6 /* GymMatReviewView.swift */; };
+		0CEB8DB02C24A4330094C6C6 /* DayOfWeek+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CEB8DAE2C24A4330094C6C6 /* DayOfWeek+CoreDataClass.swift */; };
+		0CEB8DB12C24A4330094C6C6 /* DayOfWeek+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CEB8DAF2C24A4330094C6C6 /* DayOfWeek+CoreDataProperties.swift */; };
+		0CEB8DB42C24BAE00094C6C6 /* calendar Image.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CEB8DB32C24BAE00094C6C6 /* calendar Image.png */; };
+		0CEB8DB62C24C2BF0094C6C6 /* DayOfWeekFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CEB8DB52C24C2BF0094C6C6 /* DayOfWeekFormView.swift */; };
+		0CEB8DB82C24C2E10094C6C6 /* AppDayOfWeekViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CEB8DB72C24C2E10094C6C6 /* AppDayOfWeekViewModel.swift */; };
+		0CEB8DBD2C24D2B40094C6C6 /* ViewOpenMatByDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CEB8DA92C2495F90094C6C6 /* ViewOpenMatByDay.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -113,7 +121,6 @@
 		0CB3602F2C16A7FD00376669 /* NotFoundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotFoundView.swift; sourceTree = "<group>"; };
 		0CB360312C17A2E000376669 /* EditExistingIslandList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditExistingIslandList.swift; sourceTree = "<group>"; };
 		0CB360332C17E62400376669 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
-		0CCD05A32C20B9ED00E34084 /* flashing2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = flashing2.gif; path = ../../../../flashing2.gif; sourceTree = "<group>"; };
 		0CCD05A52C20E9AE00E34084 /* CustomMapMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMapMarker.swift; sourceTree = "<group>"; };
 		0CCD05A72C20EA7F00E34084 /* AllEnteredLocations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllEnteredLocations.swift; sourceTree = "<group>"; };
 		0CE6486B2C21E6A3007C47DD /* YOu are HEre.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "YOu are HEre.png"; sourceTree = "<group>"; };
@@ -125,6 +132,15 @@
 		0CE648782C22351E007C47DD /* FAQnDisclaimerMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQnDisclaimerMenu.swift; sourceTree = "<group>"; };
 		0CE6487A2C2239A7007C47DD /* MF_little_trans .png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MF_little_trans .png"; sourceTree = "<group>"; };
 		0CE6487B2C2239A8007C47DD /* MF_little .png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MF_little .png"; sourceTree = "<group>"; };
+		0CEB8DA42C248F250094C6C6 /* flashing2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = flashing2.gif; sourceTree = "<group>"; };
+		0CEB8DA72C24909C0094C6C6 /* Search By Day of the Week.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Search By Day of the Week.swift"; sourceTree = "<group>"; };
+		0CEB8DA92C2495F90094C6C6 /* ViewOpenMatByDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewOpenMatByDay.swift; sourceTree = "<group>"; };
+		0CEB8DAB2C2499AE0094C6C6 /* GymMatReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymMatReviewView.swift; sourceTree = "<group>"; };
+		0CEB8DAE2C24A4330094C6C6 /* DayOfWeek+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DayOfWeek+CoreDataClass.swift"; sourceTree = "<group>"; };
+		0CEB8DAF2C24A4330094C6C6 /* DayOfWeek+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DayOfWeek+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		0CEB8DB32C24BAE00094C6C6 /* calendar Image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "calendar Image.png"; sourceTree = "<group>"; };
+		0CEB8DB52C24C2BF0094C6C6 /* DayOfWeekFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayOfWeekFormView.swift; sourceTree = "<group>"; };
+		0CEB8DB72C24C2E10094C6C6 /* AppDayOfWeekViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDayOfWeekViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -204,11 +220,12 @@
 				0C36E3352C116777001E38C7 /* ContentView.swift */,
 				0C36E3682C11695E001E38C7 /* PirateIslandView.swift */,
 				0C36E36A2C11697E001E38C7 /* AddIslandFormView.swift */,
-				0C36E36C2C116996001E38C7 /* IslandDetailView..swift */,
 				0C36E36E2C1169AD001E38C7 /* IslandMapView.swift */,
+				0C36E36C2C116996001E38C7 /* IslandDetailView..swift */,
 				0C138E322C12447B00F7F532 /* IslandMap.swift */,
+				0CEB8DB32C24BAE00094C6C6 /* calendar Image.png */,
+				0CEB8DA42C248F250094C6C6 /* flashing2.gif */,
 				0C3F61E22C1B8363002FE54D /* flashing.gif */,
-				0CCD05A32C20B9ED00E34084 /* flashing2.gif */,
 				0CE6487B2C2239A8007C47DD /* MF_little .png */,
 				0CE6487A2C2239A7007C47DD /* MF_little_trans .png */,
 				0CE6486B2C21E6A3007C47DD /* YOu are HEre.png */,
@@ -220,8 +237,12 @@
 				0C36E33E2C116779001E38C7 /* Seas2.xcdatamodeld */,
 				0C36E3642C116917001E38C7 /* PirateIsland+CoreDataClass.swift */,
 				0C36E3652C116917001E38C7 /* PirateIsland+CoreDataProperties.swift */,
+				0CEB8DAE2C24A4330094C6C6 /* DayOfWeek+CoreDataClass.swift */,
+				0CEB8DAF2C24A4330094C6C6 /* DayOfWeek+CoreDataProperties.swift */,
 				0C36E3722C116AD6001E38C7 /* CoreDataStack.swift */,
 				0C36E3372C116779001E38C7 /* Assets.xcassets */,
+				0CEB8DB22C24B06B0094C6C6 /* Search By Day of Week */,
+				0CEB8DAD2C2499C50094C6C6 /* MatReview */,
 				0C138E342C126B6B00F7F532 /* ALL ISLANDS */,
 				0CE648712C21F313007C47DD /* FAQ n Disclaimer stuff */,
 				0C36E3392C116779001E38C7 /* Preview Content */,
@@ -263,6 +284,25 @@
 				0CE648762C21F35A007C47DD /* FAQ.swift */,
 			);
 			path = "FAQ n Disclaimer stuff";
+			sourceTree = "<group>";
+		};
+		0CEB8DAD2C2499C50094C6C6 /* MatReview */ = {
+			isa = PBXGroup;
+			children = (
+				0CEB8DAB2C2499AE0094C6C6 /* GymMatReviewView.swift */,
+			);
+			path = MatReview;
+			sourceTree = "<group>";
+		};
+		0CEB8DB22C24B06B0094C6C6 /* Search By Day of Week */ = {
+			isa = PBXGroup;
+			children = (
+				0CEB8DA92C2495F90094C6C6 /* ViewOpenMatByDay.swift */,
+				0CEB8DB52C24C2BF0094C6C6 /* DayOfWeekFormView.swift */,
+				0CEB8DB72C24C2E10094C6C6 /* AppDayOfWeekViewModel.swift */,
+				0CEB8DA72C24909C0094C6C6 /* Search By Day of the Week.swift */,
+			);
+			path = "Search By Day of Week";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -369,14 +409,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0CCD05A42C20B9ED00E34084 /* flashing2.gif in Resources */,
 				0CE6487D2C2239A8007C47DD /* MF_little .png in Resources */,
 				0C3F61E32C1B8363002FE54D /* flashing.gif in Resources */,
+				0CEB8DB42C24BAE00094C6C6 /* calendar Image.png in Resources */,
 				0C36E3632C11685D001E38C7 /* Assets.xcassets in Resources */,
 				0C36E33B2C116779001E38C7 /* Preview Assets.xcassets in Resources */,
 				0CE6486D2C21E6A3007C47DD /* YOu are HEre.png in Resources */,
 				0CE6487C2C2239A8007C47DD /* MF_little_trans .png in Resources */,
 				0CE6486E2C21E6A3007C47DD /* YOu are HEre2.png in Resources */,
+				0CEB8DA52C248F250094C6C6 /* flashing2.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -405,7 +446,9 @@
 				0C36E3402C116779001E38C7 /* Seas2.xcdatamodeld in Sources */,
 				0C138E3E2C13C80C00F7F532 /* IslandMenu.swift in Sources */,
 				0C36E33D2C116779001E38C7 /* Persistence.swift in Sources */,
+				0CEB8DBD2C24D2B40094C6C6 /* ViewOpenMatByDay.swift in Sources */,
 				0C138E382C126B9700F7F532 /* AllMapView.swift in Sources */,
+				0CEB8DA82C24909C0094C6C6 /* Search By Day of the Week.swift in Sources */,
 				0C36E36F2C1169AE001E38C7 /* IslandMapView.swift in Sources */,
 				0C4FF7612C1D6E8200181210 /* CustomMarkerView.swift in Sources */,
 				0CE648792C22351E007C47DD /* FAQnDisclaimerMenu.swift in Sources */,
@@ -413,16 +456,20 @@
 				0C36E3732C116AD6001E38C7 /* CoreDataStack.swift in Sources */,
 				0C3F61EB2C1CAFD9002FE54D /* SharedTypes.swift in Sources */,
 				0CB360342C17E62400376669 /* LocationManager.swift in Sources */,
+				0CEB8DB02C24A4330094C6C6 /* DayOfWeek+CoreDataClass.swift in Sources */,
+				0CEB8DB12C24A4330094C6C6 /* DayOfWeek+CoreDataProperties.swift in Sources */,
 				0C3F61DF2C1B803E002FE54D /* GIFBackgroundView.swift in Sources */,
 				0CE648702C21ECD4007C47DD /* CustomPin.swift in Sources */,
 				0C138E402C13DFC800F7F532 /* AddNewIsland.swift in Sources */,
 				0CE648752C21F34F007C47DD /* Disclaimer.swift in Sources */,
 				0CCD05A62C20E9AE00E34084 /* CustomMapMarker.swift in Sources */,
+				0CEB8DB82C24C2E10094C6C6 /* AppDayOfWeekViewModel.swift in Sources */,
 				0C138E422C13E05100F7F532 /* EditExistingIsland.swift in Sources */,
 				0C36E3362C116777001E38C7 /* ContentView.swift in Sources */,
 				0CE648772C21F35A007C47DD /* FAQ.swift in Sources */,
 				0C36E3662C116917001E38C7 /* PirateIsland+CoreDataClass.swift in Sources */,
 				0C3F61E52C1CA56C002FE54D /* EnterZipCodeView..swift in Sources */,
+				0CEB8DB62C24C2BF0094C6C6 /* DayOfWeekFormView.swift in Sources */,
 				0C3F61DD2C1B7D42002FE54D /* SwiftGif.swift in Sources */,
 				0C36E36D2C116996001E38C7 /* IslandDetailView..swift in Sources */,
 				0C138E3C2C1360C400F7F532 /* AdditionalGymInfo.swift in Sources */,
@@ -436,6 +483,7 @@
 				0CE648732C21F333007C47DD /* Who We Are.swift in Sources */,
 				0C3F61E72C1CAD3F002FE54D /* SceneLoader.swift in Sources */,
 				0C36E3342C116777001E38C7 /* Seas2App.swift in Sources */,
+				0CEB8DAC2C2499AE0094C6C6 /* GymMatReviewView.swift in Sources */,
 				0C3F61E92C1CAD69002FE54D /* RenderingManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -10,9 +10,9 @@ import SwiftUI
 import CoreData
 import Combine
 
+
 class CoreDataStack: ObservableObject {
     static let shared = CoreDataStack()
-    
 
     @Published var lastPirateIsland: PirateIsland?
 
@@ -44,6 +44,7 @@ class CoreDataStack: ObservableObject {
         }
     }
 
+    // Fetching PirateIsland
     func fetchPirateIslands() -> [PirateIsland]? {
         let fetchRequest: NSFetchRequest<PirateIsland> = PirateIsland.fetchRequest()
         do {
@@ -68,7 +69,7 @@ class CoreDataStack: ObservableObject {
         }
     }
 
-
+    // Handling Destination Selection
     func handleDestinationSelection(_ destinationSelection: Destination?) {
         guard let destination = destinationSelection else {
             print("Default case")
@@ -87,6 +88,89 @@ class CoreDataStack: ObservableObject {
         case .other:
             print("UNCHARTED SEAS")
         }
+    }
+
+    // Fetching AppDayOfWeek
+    func fetchAppDayOfWeeks() -> [AppDayOfWeek]? {
+        let fetchRequest: NSFetchRequest<AppDayOfWeek> = AppDayOfWeek.fetchRequest()
+        do {
+            return try context.fetch(fetchRequest)
+        } catch {
+            print("Error fetching AppDayOfWeek: \(error.localizedDescription)")
+            return nil
+        }
+    }
+
+    // Fetching Specific AppDayOfWeek by ID
+    func fetchAppDayOfWeek(byID id: NSManagedObjectID) -> AppDayOfWeek? {
+        do {
+            return try context.existingObject(with: id) as? AppDayOfWeek
+        } catch {
+            print("Error fetching AppDayOfWeek by ID: \(error.localizedDescription)")
+            return nil
+        }
+    }
+
+    // Create a new AppDayOfWeek
+    func createAppDayOfWeek(sunday: Bool, monday: Bool, tuesday: Bool, wednesday: Bool, thursday: Bool, friday: Bool, saturday: Bool, matTime: String?, restrictions: Bool, restrictionDescription: String?, op_sunday: Bool, op_monday: Bool, op_tuesday: Bool, op_wednesday: Bool, op_thursday: Bool, op_friday: Bool, op_saturday: Bool, gi: Bool, noGi: Bool) -> AppDayOfWeek {
+        let newAppDayOfWeek = AppDayOfWeek(context: context)
+        newAppDayOfWeek.sunday = sunday
+        newAppDayOfWeek.monday = monday
+        newAppDayOfWeek.tuesday = tuesday
+        newAppDayOfWeek.wednesday = wednesday
+        newAppDayOfWeek.thursday = thursday
+        newAppDayOfWeek.friday = friday
+        newAppDayOfWeek.saturday = saturday
+        newAppDayOfWeek.matTime = matTime
+        newAppDayOfWeek.restrictions = restrictions
+        newAppDayOfWeek.restrictionDescription = restrictionDescription
+        newAppDayOfWeek.op_sunday = op_sunday
+        newAppDayOfWeek.op_monday = op_monday
+        newAppDayOfWeek.op_tuesday = op_tuesday
+        newAppDayOfWeek.op_wednesday = op_wednesday
+        newAppDayOfWeek.op_thursday = op_thursday
+        newAppDayOfWeek.op_friday = op_friday
+        newAppDayOfWeek.op_saturday = op_saturday
+        newAppDayOfWeek.gi = gi
+        newAppDayOfWeek.noGi = noGi
+        newAppDayOfWeek.goodForBeginners = noGi
+        newAppDayOfWeek.openMat = noGi
+
+        saveContext()
+        return newAppDayOfWeek
+    }
+
+    // Update an existing AppDayOfWeek
+    func updateAppDayOfWeek(appDayOfWeek: AppDayOfWeek, sunday: Bool, monday: Bool, tuesday: Bool, wednesday: Bool, thursday: Bool, friday: Bool, saturday: Bool, matTime: String?, restrictions: Bool, restrictionDescription: String?, op_sunday: Bool, op_monday: Bool, op_tuesday: Bool, op_wednesday: Bool, op_thursday: Bool, op_friday: Bool, op_saturday: Bool, gi: Bool, noGi: Bool) {
+        appDayOfWeek.sunday = sunday
+        appDayOfWeek.monday = monday
+        appDayOfWeek.tuesday = tuesday
+        appDayOfWeek.wednesday = wednesday
+        appDayOfWeek.thursday = thursday
+        appDayOfWeek.friday = friday
+        appDayOfWeek.saturday = saturday
+        appDayOfWeek.matTime = matTime
+        appDayOfWeek.restrictions = restrictions
+        appDayOfWeek.restrictionDescription = restrictionDescription
+        appDayOfWeek.op_sunday = op_sunday
+        appDayOfWeek.op_monday = op_monday
+        appDayOfWeek.op_tuesday = op_tuesday
+        appDayOfWeek.op_wednesday = op_wednesday
+        appDayOfWeek.op_thursday = op_thursday
+        appDayOfWeek.op_friday = op_friday
+        appDayOfWeek.op_saturday = op_saturday
+        appDayOfWeek.gi = gi
+        appDayOfWeek.noGi = noGi
+        appDayOfWeek.openMat = noGi
+        appDayOfWeek.goodForBeginners = noGi
+
+        saveContext()
+    }
+
+    // Delete an AppDayOfWeek
+    func deleteAppDayOfWeek(appDayOfWeek: AppDayOfWeek) {
+        context.delete(appDayOfWeek)
+        saveContext()
     }
 }
 

@@ -9,7 +9,7 @@ import CoreData
 
 struct EditExistingIsland: View {
     @ObservedObject var island: PirateIsland
-    @Environment(\.presentationMode) var presentationMode // To dismiss the view
+    @Environment(\.presentationMode) var presentationMode
     
     @State private var islandName: String
     @State private var islandLocation: String
@@ -70,7 +70,7 @@ struct EditExistingIsland: View {
         .navigationBarItems(trailing:
             Button("Save") {
                 updateIsland()
-                presentationMode.wrappedValue.dismiss() // Dismiss this view
+                presentationMode.wrappedValue.dismiss()
             }
         )
         .onDisappear {
@@ -82,7 +82,6 @@ struct EditExistingIsland: View {
     }
     
     private func updateIsland() {
-        // Ensure that the island object is associated with the correct managed object context
         guard let context = island.managedObjectContext else {
             print("Error: Managed object context is nil")
             return
@@ -98,7 +97,7 @@ struct EditExistingIsland: View {
             }
             
             do {
-                try context.save() // Save changes to the context
+                try context.save()
             } catch {
                 print("Error saving island: \(error.localizedDescription)")
             }

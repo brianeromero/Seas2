@@ -4,7 +4,6 @@
 //
 //  Created by Brian Romero on 6/5/24.
 //
-
 import SwiftUI
 import CoreData
 import Combine
@@ -24,15 +23,36 @@ struct PersistenceController {
             newIsland.islandLocation = "Sample Location"
             newIsland.enteredBy = "Sample Pirate"
             newIsland.creationDate = Date()
-            // Set latitude and longitude here
-            newIsland.latitude = 0.0 // Default latitude
-            newIsland.longitude = 0.0 // Default longitude
+            newIsland.latitude = 0.0
+            newIsland.longitude = 0.0
+
+            // Add sample AppDayOfWeek data
+            let newDayOfWeek = AppDayOfWeek(context: viewContext)
+            newDayOfWeek.sunday = true
+            newDayOfWeek.monday = false
+            newDayOfWeek.tuesday = true
+            newDayOfWeek.wednesday = false
+            newDayOfWeek.thursday = true
+            newDayOfWeek.friday = false
+            newDayOfWeek.saturday = true
+            newDayOfWeek.matTime = "2 hours"
+            newDayOfWeek.restrictions = true
+            newDayOfWeek.restrictionDescription = "No restrictions"
+            newDayOfWeek.op_sunday = true
+            newDayOfWeek.op_monday = false
+            newDayOfWeek.op_tuesday = true
+            newDayOfWeek.op_wednesday = false
+            newDayOfWeek.op_thursday = true
+            newDayOfWeek.op_friday = false
+            newDayOfWeek.op_saturday = true
+            newDayOfWeek.gi = true
+            newDayOfWeek.noGi = false
+            newDayOfWeek.goodForBeginners = true
+            newDayOfWeek.openMat = false
         }
         do {
             try viewContext.save()
         } catch {
-            // Replace this implementation with code to handle the error appropriately.
-            // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
             let nsError = error as NSError
             fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
         }
@@ -48,17 +68,6 @@ struct PersistenceController {
         }
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-
-                /*
-                 Typical reasons for an error here include:
-                 * The parent directory does not exist, cannot be created, or disallows writing.
-                 * The persistent store is not accessible, due to permissions or data protection when the device is locked.
-                 * The device is out of space.
-                 * The store could not be migrated to the current model version.
-                 Check the error message to determine what the actual problem was.
-                 */
                 print("Error loading persistent store: \(error.localizedDescription)")
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
