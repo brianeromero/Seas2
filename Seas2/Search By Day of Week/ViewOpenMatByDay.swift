@@ -19,7 +19,11 @@ class DaysOfWeekMenu: ObservableObject {
         var id: String { self.rawValue }
     }
     
-    @Published var selectedDay: DayOfWeek? = nil
+    @Published var selectedDay: DayOfWeek? = nil {
+        didSet {
+            print("Selected day changed to: \(selectedDay?.rawValue ?? "nil")")
+        }
+    }
     
     var contentView: some View {
         switch selectedDay {
@@ -47,11 +51,15 @@ struct DayDetailView: View {
     let day: DaysOfWeekMenu.DayOfWeek
     
     var body: some View {
-        Text("Detail view for \(day.rawValue)")
+        // Print statement to log the day being displayed
+        print("Rendering detail view for \(day.rawValue)")
+        
+        return Text("Detail view for \(day.rawValue)")
             .font(.title)
             .padding()
     }
 }
+
 
 struct DaysOfWeekView: View {
     @ObservedObject var menu = DaysOfWeekMenu()
@@ -92,8 +100,6 @@ struct DaysOfWeekView: View {
         }
     }
 }
-
-
 
 struct DaysOfWeekView_Previews: PreviewProvider {
     static var previews: some View {

@@ -70,6 +70,10 @@ struct EditExistingIslandList: View {
             }
             .padding()
         }
+        .onChange(of: searchQuery) { newValue in
+            // Reset showNoMatchAlert when searchQuery changes
+            showNoMatchAlert = false
+        }
     }
 }
 

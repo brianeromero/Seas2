@@ -97,7 +97,7 @@ struct FAQnDisclaimerMenuView: View {
                     .padding(.horizontal)
             }
             .padding(.horizontal) // Add horizontal padding to VStack
-            .navigationTitle("FAQ & Disclaimer Stuff")
+            .navigationTitle("FAQ & Disclaimer")
         }
     }
 }

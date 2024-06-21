@@ -10,6 +10,22 @@ import SwiftUI
 import CoreData
 import Combine
 
+extension NSManagedObjectContext {
+    static var preview: NSManagedObjectContext {
+        let container = NSPersistentContainer(name: "Seas2")
+        let description = NSPersistentStoreDescription()
+        description.type = NSInMemoryStoreType // Use in-memory store for previews
+        container.persistentStoreDescriptions = [description]
+        
+        container.loadPersistentStores { (_, error) in
+            if let error = error {
+                fatalError("Failed to load preview store: \(error)")
+            }
+        }
+        
+        return container.viewContext
+    }
+}
 
 class CoreDataStack: ObservableObject {
     static let shared = CoreDataStack()
@@ -43,6 +59,7 @@ class CoreDataStack: ObservableObject {
             fatalError("Failed to save context: \(nsError), \(nsError.userInfo)")
         }
     }
+
 
     // Fetching PirateIsland
     func fetchPirateIslands() -> [PirateIsland]? {
@@ -92,24 +109,34 @@ class CoreDataStack: ObservableObject {
 
     // Fetching AppDayOfWeek
     func fetchAppDayOfWeeks() -> [AppDayOfWeek]? {
+        // Create fetch request for AppDayOfWeek entities
         let fetchRequest: NSFetchRequest<AppDayOfWeek> = AppDayOfWeek.fetchRequest()
+        
         do {
+            // Attempt to fetch AppDayOfWeek objects from Core Data context
             return try context.fetch(fetchRequest)
         } catch {
+            // Print error message if fetch request fails
             print("Error fetching AppDayOfWeek: \(error.localizedDescription)")
             return nil
         }
     }
 
+
     // Fetching Specific AppDayOfWeek by ID
     func fetchAppDayOfWeek(byID id: NSManagedObjectID) -> AppDayOfWeek? {
         do {
-            return try context.existingObject(with: id) as? AppDayOfWeek
+            guard let object = try context.existingObject(with: id) as? AppDayOfWeek else {
+                print("Object with ID \(id) does not exist or cannot be cast to AppDayOfWeek")
+                return nil
+            }
+            return object
         } catch {
             print("Error fetching AppDayOfWeek by ID: \(error.localizedDescription)")
             return nil
         }
     }
+
 
     // Create a new AppDayOfWeek
     func createAppDayOfWeek(sunday: Bool, monday: Bool, tuesday: Bool, wednesday: Bool, thursday: Bool, friday: Bool, saturday: Bool, matTime: String?, restrictions: Bool, restrictionDescription: String?, op_sunday: Bool, op_monday: Bool, op_tuesday: Bool, op_wednesday: Bool, op_thursday: Bool, op_friday: Bool, op_saturday: Bool, gi: Bool, noGi: Bool) -> AppDayOfWeek {

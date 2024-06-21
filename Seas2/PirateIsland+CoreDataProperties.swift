@@ -13,7 +13,6 @@ import Combine
 import CoreLocation
 import MapKit
 
-
 extension PirateIsland {
     @nonobjc public class func fetchRequest() -> NSFetchRequest<PirateIsland> {
         return NSFetchRequest<PirateIsland>(entityName: "PirateIsland")
@@ -33,9 +32,17 @@ extension PirateIsland {
         request.predicate = predicate
         
         do {
+            // Print the constructed predicate for debugging purposes
+            print("Predicate: \(predicate)")
+            
             let islandsNearLocation = try context.fetch(request)
+            
+            // Print the number of islands found
+            print("Found \(islandsNearLocation.count) islands near location")
+            
             return islandsNearLocation
         } catch {
+            // Print the error if fetch fails
             print("Error fetching islands: \(error.localizedDescription)")
             return []
         }
