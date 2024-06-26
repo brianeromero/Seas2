@@ -39,6 +39,8 @@
 		0C3F61E92C1CAD69002FE54D /* RenderingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3F61E82C1CAD69002FE54D /* RenderingManager.swift */; };
 		0C3F61EB2C1CAFD9002FE54D /* SharedTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3F61EA2C1CAFD9002FE54D /* SharedTypes.swift */; };
 		0C4FF7612C1D6E8200181210 /* CustomMarkerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4FF7602C1D6E8200181210 /* CustomMarkerView.swift */; };
+		0C94C04C2C2B6DFD00932D44 /* CustomUnarchiveTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C94C04B2C2B6DFD00932D44 /* CustomUnarchiveTransformer.swift */; };
+		0C94C04E2C2B6EF000932D44 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C94C04D2C2B6EF000932D44 /* AppDelegate.swift */; };
 		0CA746032C261B0F00DEC394 /* AddOpenMatFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA746022C261B0F00DEC394 /* AddOpenMatFormView.swift */; };
 		0CA746052C261CFB00DEC394 /* AddClassScheduleFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CA746042C261CFB00DEC394 /* AddClassScheduleFormView.swift */; };
 		0CB360302C16A7FD00376669 /* NotFoundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CB3602F2C16A7FD00376669 /* NotFoundView.swift */; };
@@ -55,6 +57,7 @@
 		0CE648792C22351E007C47DD /* FAQnDisclaimerMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE648782C22351E007C47DD /* FAQnDisclaimerMenu.swift */; };
 		0CE6487C2C2239A8007C47DD /* MF_little_trans .png in Resources */ = {isa = PBXBuildFile; fileRef = 0CE6487A2C2239A7007C47DD /* MF_little_trans .png */; };
 		0CE6487D2C2239A8007C47DD /* MF_little .png in Resources */ = {isa = PBXBuildFile; fileRef = 0CE6487B2C2239A8007C47DD /* MF_little .png */; };
+		0CEB03922C2B76C8007CA3CC /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CEB03912C2B76C8007CA3CC /* AppState.swift */; };
 		0CEB8DA52C248F250094C6C6 /* flashing2.gif in Resources */ = {isa = PBXBuildFile; fileRef = 0CEB8DA42C248F250094C6C6 /* flashing2.gif */; };
 		0CEB8DA82C24909C0094C6C6 /* Search By Day of the Week.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CEB8DA72C24909C0094C6C6 /* Search By Day of the Week.swift */; };
 		0CEB8DAC2C2499AE0094C6C6 /* GymMatReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CEB8DAB2C2499AE0094C6C6 /* GymMatReviewView.swift */; };
@@ -123,6 +126,8 @@
 		0C3F61E82C1CAD69002FE54D /* RenderingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderingManager.swift; sourceTree = "<group>"; };
 		0C3F61EA2C1CAFD9002FE54D /* SharedTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedTypes.swift; sourceTree = "<group>"; };
 		0C4FF7602C1D6E8200181210 /* CustomMarkerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMarkerView.swift; sourceTree = "<group>"; };
+		0C94C04B2C2B6DFD00932D44 /* CustomUnarchiveTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomUnarchiveTransformer.swift; sourceTree = "<group>"; };
+		0C94C04D2C2B6EF000932D44 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0CA746022C261B0F00DEC394 /* AddOpenMatFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddOpenMatFormView.swift; sourceTree = "<group>"; };
 		0CA746042C261CFB00DEC394 /* AddClassScheduleFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddClassScheduleFormView.swift; sourceTree = "<group>"; };
 		0CB3602F2C16A7FD00376669 /* NotFoundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotFoundView.swift; sourceTree = "<group>"; };
@@ -139,6 +144,7 @@
 		0CE648782C22351E007C47DD /* FAQnDisclaimerMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQnDisclaimerMenu.swift; sourceTree = "<group>"; };
 		0CE6487A2C2239A7007C47DD /* MF_little_trans .png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MF_little_trans .png"; sourceTree = "<group>"; };
 		0CE6487B2C2239A8007C47DD /* MF_little .png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MF_little .png"; sourceTree = "<group>"; };
+		0CEB03912C2B76C8007CA3CC /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		0CEB8DA42C248F250094C6C6 /* flashing2.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = flashing2.gif; sourceTree = "<group>"; };
 		0CEB8DA72C24909C0094C6C6 /* Search By Day of the Week.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Search By Day of the Week.swift"; sourceTree = "<group>"; };
 		0CEB8DA92C2495F90094C6C6 /* ViewOpenMatByDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewOpenMatByDay.swift; sourceTree = "<group>"; };
@@ -151,6 +157,7 @@
 		0CEB8DBE2C25003F0094C6C6 /* DayOfWeekView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayOfWeekView.swift; sourceTree = "<group>"; };
 		0CEB8DC02C25008E0094C6C6 /* SavedConfirmationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedConfirmationView.swift; sourceTree = "<group>"; };
 		0CEB8DC22C25DC1C0094C6C6 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
+		0CF5E50E2C2BDC3A00AE4664 /* Seas 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Seas 2.xcdatamodel"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -201,6 +208,7 @@
 		0C36E3272C116777001E38C7 = {
 			isa = PBXGroup;
 			children = (
+				0CEB03912C2B76C8007CA3CC /* AppState.swift */,
 				0C36E3322C116777001E38C7 /* Seas2 */,
 				0C36E3482C116779001E38C7 /* Seas2Tests */,
 				0C36E3522C116779001E38C7 /* Seas2UITests */,
@@ -257,6 +265,8 @@
 				0CE648712C21F313007C47DD /* FAQ n Disclaimer stuff */,
 				0C36E3392C116779001E38C7 /* Preview Content */,
 				0CEB8DC22C25DC1C0094C6C6 /* Logger.swift */,
+				0C94C04B2C2B6DFD00932D44 /* CustomUnarchiveTransformer.swift */,
+				0C94C04D2C2B6EF000932D44 /* AppDelegate.swift */,
 			);
 			path = Seas2;
 			sourceTree = "<group>";
@@ -463,6 +473,7 @@
 				0C36E33D2C116779001E38C7 /* Persistence.swift in Sources */,
 				0CEB8DBD2C24D2B40094C6C6 /* ViewOpenMatByDay.swift in Sources */,
 				0C138E382C126B9700F7F532 /* AllMapView.swift in Sources */,
+				0CEB03922C2B76C8007CA3CC /* AppState.swift in Sources */,
 				0CEB8DA82C24909C0094C6C6 /* Search By Day of the Week.swift in Sources */,
 				0C36E36F2C1169AE001E38C7 /* IslandMapView.swift in Sources */,
 				0C4FF7612C1D6E8200181210 /* CustomMarkerView.swift in Sources */,
@@ -480,6 +491,7 @@
 				0C138E402C13DFC800F7F532 /* AddNewIsland.swift in Sources */,
 				0CE648752C21F34F007C47DD /* Disclaimer.swift in Sources */,
 				0CCD05A62C20E9AE00E34084 /* CustomMapMarker.swift in Sources */,
+				0C94C04C2C2B6DFD00932D44 /* CustomUnarchiveTransformer.swift in Sources */,
 				0CEB8DB82C24C2E10094C6C6 /* AppDayOfWeekViewModel.swift in Sources */,
 				0CEB8DC12C25008E0094C6C6 /* SavedConfirmationView.swift in Sources */,
 				0C138E422C13E05100F7F532 /* EditExistingIsland.swift in Sources */,
@@ -494,6 +506,7 @@
 				0C138E3C2C1360C400F7F532 /* AdditionalGymInfo.swift in Sources */,
 				0CB360322C17A2E000376669 /* EditExistingIslandList.swift in Sources */,
 				0CA746032C261B0F00DEC394 /* AddOpenMatFormView.swift in Sources */,
+				0C94C04E2C2B6EF000932D44 /* AppDelegate.swift in Sources */,
 				0C36E3692C11695E001E38C7 /* PirateIslandView.swift in Sources */,
 				0C138E332C12447B00F7F532 /* IslandMap.swift in Sources */,
 				0C36E36B2C11697E001E38C7 /* AddIslandFormView.swift in Sources */,
@@ -839,9 +852,10 @@
 		0C36E33E2C116779001E38C7 /* Seas2.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				0CF5E50E2C2BDC3A00AE4664 /* Seas 2.xcdatamodel */,
 				0C36E33F2C116779001E38C7 /* Seas2.xcdatamodel */,
 			);
-			currentVersion = 0C36E33F2C116779001E38C7 /* Seas2.xcdatamodel */;
+			currentVersion = 0CF5E50E2C2BDC3A00AE4664 /* Seas 2.xcdatamodel */;
 			path = Seas2.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

@@ -8,6 +8,7 @@
 
 import SwiftUI
 
+
 struct DayOfWeekView: View {
     @ObservedObject var viewModel = AppDayOfWeekViewModel()
     @State private var isSaved = false // Track whether the data is saved

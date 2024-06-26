@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22758" systemVersion="23G5052d" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="AppDayOfWeek" representedClassName="AppDayOfWeek" syncable="YES">
-        <attribute name="daysSelected" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromDataTransformerName"/>
         <attribute name="friday" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="gi" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="goodForBeginners" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
@@ -23,18 +22,18 @@
         <attribute name="thursday" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="tuesday" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="wednesday" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
-        <relationship name="pirateIsland" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PirateIsland" inverseName="daysOfWeek" inverseEntity="PirateIsland"/>
+        <relationship name="pirateIslands" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PirateIsland" inverseName="daysOfWeek" inverseEntity="PirateIsland"/>
     </entity>
     <entity name="PirateIsland" representedClassName="PirateIsland" syncable="YES">
-        <attribute name="coordinate" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="coordinate" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="creationDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="enteredBy" optional="YES" attributeType="String"/>
         <attribute name="gymWebsite" optional="YES" attributeType="URI"/>
-        <attribute name="islandLocation" optional="YES" attributeType="String"/>
-        <attribute name="islandName" optional="YES" attributeType="String"/>
-        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
-        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
-        <relationship name="daysOfWeek" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="AppDayOfWeek" inverseName="pirateIsland" inverseEntity="AppDayOfWeek"/>
+        <attribute name="islandLocation" attributeType="String"/>
+        <attribute name="islandName" attributeType="String"/>
+        <attribute name="latitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="longitude" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="timestamp" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="daysOfWeek" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="AppDayOfWeek" inverseName="pirateIslands" inverseEntity="AppDayOfWeek"/>
     </entity>
 </model>

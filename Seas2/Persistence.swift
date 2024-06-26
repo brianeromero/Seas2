@@ -1,21 +1,35 @@
-//
 //  Persistence.swift
 //  Seas2
 //
 //  Created by Brian Romero on 6/5/24.
 //
+
 import SwiftUI
 import CoreData
-import Combine
-import CoreLocation
-import Foundation
 
 struct PersistenceController {
     static let shared = PersistenceController()
 
+    let container: NSPersistentContainer
+
+    private init() {
+        container = NSPersistentContainer(name: "Seas2") // Match with `Seas2.xcdatamodeld`
+        let description = container.persistentStoreDescriptions.first
+        description?.setOption(true as NSNumber, forKey: NSMigratePersistentStoresAutomaticallyOption)
+        description?.setOption(true as NSNumber, forKey: NSInferMappingModelAutomaticallyOption)
+        container.loadPersistentStores { storeDescription, error in
+            if let error = error as NSError? {
+                print("Error loading persistent store: \(error.localizedDescription)")
+                fatalError("Unresolved error \(error), \(error.userInfo)")
+            }
+        }
+        container.viewContext.automaticallyMergesChangesFromParent = true
+        print("Initialized PersistenceController")
+    }
+
     static var preview: PersistenceController = {
-        let result = PersistenceController(inMemory: true)
-        let viewContext = result.container.viewContext
+        let controller = PersistenceController(inMemory: true)
+        let viewContext = controller.container.viewContext
         for _ in 0..<10 {
             let newIsland = PirateIsland(context: viewContext)
             newIsland.timestamp = Date()
@@ -54,15 +68,15 @@ struct PersistenceController {
             try viewContext.save()
         } catch {
             let nsError = error as NSError
+            print("Error saving preview context: \(nsError.localizedDescription)")
             fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
         }
-        return result
+        print("Initialized preview PersistenceController")
+        return controller
     }()
 
-    let container: NSPersistentContainer
-
     init(inMemory: Bool = false) {
-        container = NSPersistentContainer(name: "Seas2")
+        container = NSPersistentContainer(name: "Seas2") // Match with `Seas2.xcdatamodeld`
         if inMemory {
             container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
         }
@@ -73,5 +87,10 @@ struct PersistenceController {
             }
         })
         container.viewContext.automaticallyMergesChangesFromParent = true
+        if inMemory {
+            print("Initialized in-memory PersistenceController")
+        } else {
+            print("Initialized PersistenceController")
+        }
     }
 }

@@ -135,6 +135,7 @@ struct AddIslandFormView: View {
     
     private func updateIslandLocation() {
         islandLocation = "\(street), \(city), \(state) \(zip)"
+        print("Updated Island Location: \(islandLocation)")
     }
     
     private func validateFields() {
@@ -171,9 +172,10 @@ struct AddIslandFormView: View {
     }
     
     private func geocodeIslandLocation() {
-        // Implement geocoding logic
-        print("Geocoding Island Location: \(islandLocation)")
-        geocodeAddress(islandLocation) { result in
+        let address = "\(street), \(city), \(state) \(zip)"
+        print("Geocoding Island Location: \(address)")
+        
+        geocodeAddress(address) { result in
             switch result {
             case .success(let (latitude, longitude)):
                 print("Geocoded coordinates - Latitude: \(latitude), Longitude: \(longitude)")
@@ -238,5 +240,16 @@ struct AddIslandFormView: View {
         print("Stripped URL: \(strippedString)")
         return strippedString
     }
-    
+}
+
+struct AddIslandFormView_Previews: PreviewProvider {
+    static var previews: some View {
+        AddIslandFormView(
+            islandName: .constant(""),
+            islandLocation: .constant(""),
+            enteredBy: .constant(""),
+            gymWebsite: .constant(""),
+            gymWebsiteURL: .constant(nil)
+        )
+    }
 }

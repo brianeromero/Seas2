@@ -10,17 +10,13 @@ import SwiftUI
 import CoreData
 import Combine
 
-class AppState: ObservableObject {
-    @Published var showWelcomeScreen = true
-    @Published var selectedDestination: Destination?
-}
-
 @main
 struct Seas2App: App {
-    let persistenceController = PersistenceController.shared
-    
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate // Link to your AppDelegate
+
+    private let persistenceController = PersistenceController.shared
     @StateObject var appState = AppState() // Use @StateObject for AppState
-    
+
     var body: some Scene {
         WindowGroup {
             Group {
@@ -40,6 +36,11 @@ struct Seas2App: App {
                             sceneLoader.loadScene()
                         }
                 }
+            }
+            .onAppear {
+                // Perform any UIKit-related setup here if necessary
+                // For example:
+                // UIApplication.shared.applicationIconBadgeNumber = 0
             }
         }
     }

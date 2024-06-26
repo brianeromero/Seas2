@@ -3,45 +3,4 @@
    uuid = "9B305B8C-45B5-452B-8539-F8EA503A88A2"
    type = "1"
    version = "2.0">
-   <Breakpoints>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.SymbolicBreakpoint">
-         <BreakpointContent
-            uuid = "5F262080-0FD6-44C2-B6BC-2D4063807213"
-            shouldBeEnabled = "Yes"
-            nameForDebugger = "CGPostError"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            symbolName = "CGPostError"
-            moduleName = "">
-            <Locations>
-               <Location
-                  uuid = "5F262080-0FD6-44C2-B6BC-2D4063807213 - 6b2a6ff60c6dfa83"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "CGPostError"
-                  moduleName = "CoreGraphics"
-                  usesParentBreakpointCondition = "Yes">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "BE826ECB-12F7-48A0-9285-00C7DDE1F69E"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Seas2/Search By Day of Week/AddClassForm.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "6"
-            endingLineNumber = "6"
-            landmarkName = "unknown"
-            landmarkType = "0">
-         </BreakpointContent>
-      </BreakpointProxy>
-   </Breakpoints>
 </Bucket>

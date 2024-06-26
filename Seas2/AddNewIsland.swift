@@ -5,7 +5,6 @@
 //  Created by Brian Romero on 6/7/24.
 //
 
-
 import SwiftUI
 import CoreData
 import Combine
@@ -109,9 +108,11 @@ struct AddNewIsland: View {
     }
     
     private func updateIslandLocation() {
-        islandLocation = "\(street), \(city), \(state) \(zip)"
+        let updatedLocation = "\(street), \(city), \(state) \(zip)"
+        islandLocation = updatedLocation
+        print("Updated Island Location: \(updatedLocation)")
     }
-    
+
     private func validateFields() {
         let isValid = !islandName.isEmpty &&
                       !street.isEmpty &&
@@ -136,7 +137,60 @@ struct AddNewIsland: View {
     }
     
     private func geocodeIslandLocation() {
-        // Implement geocoding logic
+        let address = "\(street), \(city), \(state) \(zip)"
+        print("Geocoding Island Location: \(address)")
+        
+        geocodeAddress(address) { result in
+            switch result {
+            case .success(let (latitude, longitude)):
+                print("Geocoded coordinates - Latitude: \(latitude), Longitude: \(longitude)")
+                guard !latitude.isNaN && !longitude.isNaN else {
+                    print("Error: Invalid latitude (\(latitude)) or longitude (\(longitude))")
+                    showAlert = true
+                    alertMessage = "Failed to get valid coordinates for the island location."
+                    return
+                }
+                saveIsland(latitude: latitude, longitude: longitude)
+            case .failure(let error):
+                print("Geocoding failed: \(error.localizedDescription)")
+                showAlert = true
+                alertMessage = "Failed to geocode the island location."
+            }
+        }
+    }
+
+    private func saveIsland(latitude: Double, longitude: Double) {
+        let newIsland = PirateIsland(context: viewContext)
+        newIsland.islandName = islandName
+        newIsland.islandLocation = islandLocation
+        newIsland.enteredBy = enteredBy
+        newIsland.creationDate = Date()
+        newIsland.timestamp = Date()
+        
+        // Logging latitude and longitude
+        print("Saving Island with coordinates - Latitude: \(latitude), Longitude: \(longitude)")
+        
+        // Validate latitude and longitude
+        if latitude.isNaN || longitude.isNaN {
+            print("Error: Invalid latitude (\(latitude)) or longitude (\(longitude))")
+            showAlert = true
+            alertMessage = "Invalid coordinates received. Please check the island location."
+            return
+        }
+        
+        newIsland.latitude = NSNumber(value: latitude)
+        newIsland.longitude = NSNumber(value: longitude)
+        newIsland.gymWebsite = gymWebsiteURL
+        
+        do {
+            try viewContext.save()
+            print("Successfully saved new island")
+            clearFields() // Clear form after successful save
+        } catch {
+            print("Failed to save new island: \(error.localizedDescription)")
+            showAlert = true
+            alertMessage = "Failed to save the island. Please try again."
+        }
     }
 
     private func validateURL(_ urlString: String) -> Bool {

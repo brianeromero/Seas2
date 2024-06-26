@@ -1,15 +1,11 @@
-//
 //  PirateIsland+CoreDataProperties.swift
 //  Seas2
 //
 //  Created by Brian Romero on 6/5/24.
 //
-//
 
 import Foundation
-import SwiftUI
 import CoreData
-import Combine
 import CoreLocation
 import MapKit
 
@@ -32,17 +28,11 @@ extension PirateIsland {
         request.predicate = predicate
         
         do {
-            // Print the constructed predicate for debugging purposes
-            print("Predicate: \(predicate)")
-            
+            print("Fetching islands with predicate: \(predicate)")
             let islandsNearLocation = try context.fetch(request)
-            
-            // Print the number of islands found
             print("Found \(islandsNearLocation.count) islands near location")
-            
             return islandsNearLocation
         } catch {
-            // Print the error if fetch fails
             print("Error fetching islands: \(error.localizedDescription)")
             return []
         }
@@ -56,7 +46,25 @@ extension PirateIsland {
     @NSManaged public var latitude: NSNumber?
     @NSManaged public var longitude: NSNumber?
     @NSManaged public var gymWebsite: URL?
-    @NSManaged public var daysOfWeek: AppDayOfWeek?
+
+    // Relationship to AppDayOfWeek
+    @NSManaged public var daysOfWeek: NSSet?
+}
+
+// MARK: Generated accessors for appDayOfWeeks
+extension PirateIsland {
+
+    @objc(addAppDayOfWeeksObject:)
+    @NSManaged public func addToAppDayOfWeeks(_ value: AppDayOfWeek)
+
+    @objc(removeAppDayOfWeeksObject:)
+    @NSManaged public func removeFromAppDayOfWeeks(_ value: AppDayOfWeek)
+
+    @objc(addAppDayOfWeeks:)
+    @NSManaged public func addToAppDayOfWeeks(_ values: NSSet)
+
+    @objc(removeAppDayOfWeeks:)
+    @NSManaged public func removeFromAppDayOfWeeks(_ values: NSSet)
 }
 
 extension PirateIsland: Identifiable {}

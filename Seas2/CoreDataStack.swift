@@ -1,4 +1,3 @@
-//
 //  CoreDataStack.swift
 //  Seas2
 //
@@ -6,72 +5,55 @@
 //
 
 import Foundation
-import SwiftUI
 import CoreData
-import Combine
-
-extension NSManagedObjectContext {
-    static var preview: NSManagedObjectContext {
-        let container = NSPersistentContainer(name: "Seas2")
-        let description = NSPersistentStoreDescription()
-        description.type = NSInMemoryStoreType // Use in-memory store for previews
-        container.persistentStoreDescriptions = [description]
-        
-        container.loadPersistentStores { (_, error) in
-            if let error = error {
-                fatalError("Failed to load preview store: \(error)")
-            }
-        }
-        
-        return container.viewContext
-    }
-}
 
 class CoreDataStack: ObservableObject {
     static let shared = CoreDataStack()
 
-    @Published var lastPirateIsland: PirateIsland?
+    private init() {
+        Self.persistentContainer.viewContext.automaticallyMergesChangesFromParent = true
+    }
 
-    private init() { }
-
-    lazy var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "Seas2")
+    private static var persistentContainer: NSPersistentContainer = {
+        let container = NSPersistentContainer(name: "Seas2") // Replace with your Core Data model name
         container.loadPersistentStores { (storeDescription, error) in
             if let error = error as NSError? {
-                fatalError("Failed to load persistent stores: \(error), \(error.userInfo)")
+                fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         }
         return container
     }()
 
     var context: NSManagedObjectContext {
-        return persistentContainer.viewContext
+        return Self.persistentContainer.viewContext
     }
-    
+
     func saveContext() {
-        let context = persistentContainer.viewContext
+        let context = Self.persistentContainer.viewContext
         guard context.hasChanges else { return }
-        
+
         do {
             try context.save()
+            print("Saved changes to context.")
         } catch {
-            let nsError = error as NSError
-            fatalError("Failed to save context: \(nsError), \(nsError.userInfo)")
+            print("Failed to save context: \(error.localizedDescription)")
         }
     }
 
-
-    // Fetching PirateIsland
+    // Fetching PirateIslands
     func fetchPirateIslands() -> [PirateIsland]? {
         let fetchRequest: NSFetchRequest<PirateIsland> = PirateIsland.fetchRequest()
         do {
-            return try context.fetch(fetchRequest)
+            let pirateIslands = try context.fetch(fetchRequest)
+            print("Fetched Pirate Islands: \(pirateIslands.count)")
+            return pirateIslands
         } catch {
             print("Error fetching pirate islands: \(error.localizedDescription)")
             return nil
         }
     }
-
+    
+    // Fetching Last PirateIsland
     func fetchLastPirateIsland() -> PirateIsland? {
         let fetchRequest: NSFetchRequest<PirateIsland> = PirateIsland.fetchRequest()
         fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \PirateIsland.creationDate, ascending: false)]
@@ -79,7 +61,13 @@ class CoreDataStack: ObservableObject {
 
         do {
             let results = try context.fetch(fetchRequest)
-            return results.first
+            if let lastIsland = results.first {
+                print("Fetched Last Pirate Island: \(lastIsland.islandName ?? "Unnamed Island")")
+                return lastIsland
+            } else {
+                print("No pirate islands found.")
+                return nil
+            }
         } catch {
             print("Error fetching last pirate island: \(error.localizedDescription)")
             return nil
@@ -109,19 +97,17 @@ class CoreDataStack: ObservableObject {
 
     // Fetching AppDayOfWeek
     func fetchAppDayOfWeeks() -> [AppDayOfWeek]? {
-        // Create fetch request for AppDayOfWeek entities
         let fetchRequest: NSFetchRequest<AppDayOfWeek> = AppDayOfWeek.fetchRequest()
-        
+
         do {
-            // Attempt to fetch AppDayOfWeek objects from Core Data context
-            return try context.fetch(fetchRequest)
+            let appDayOfWeeks = try context.fetch(fetchRequest)
+            print("Fetched AppDayOfWeeks: \(appDayOfWeeks.count)")
+            return appDayOfWeeks
         } catch {
-            // Print error message if fetch request fails
             print("Error fetching AppDayOfWeek: \(error.localizedDescription)")
             return nil
         }
     }
-
 
     // Fetching Specific AppDayOfWeek by ID
     func fetchAppDayOfWeek(byID id: NSManagedObjectID) -> AppDayOfWeek? {
@@ -137,9 +123,8 @@ class CoreDataStack: ObservableObject {
         }
     }
 
-
     // Create a new AppDayOfWeek
-    func createAppDayOfWeek(sunday: Bool, monday: Bool, tuesday: Bool, wednesday: Bool, thursday: Bool, friday: Bool, saturday: Bool, matTime: String?, restrictions: Bool, restrictionDescription: String?, op_sunday: Bool, op_monday: Bool, op_tuesday: Bool, op_wednesday: Bool, op_thursday: Bool, op_friday: Bool, op_saturday: Bool, gi: Bool, noGi: Bool) -> AppDayOfWeek {
+    func createAppDayOfWeek(sunday: Bool, monday: Bool, tuesday: Bool, wednesday: Bool, thursday: Bool, friday: Bool, saturday: Bool, matTime: String?, restrictions: Bool, restrictionDescription: String?, op_sunday: Bool, op_monday: Bool, op_tuesday: Bool, op_wednesday: Bool, op_thursday: Bool, op_friday: Bool, op_saturday: Bool, gi: Bool, noGi: Bool, selectedDays: [String]) -> AppDayOfWeek {
         let newAppDayOfWeek = AppDayOfWeek(context: context)
         newAppDayOfWeek.sunday = sunday
         newAppDayOfWeek.monday = monday
@@ -160,15 +145,20 @@ class CoreDataStack: ObservableObject {
         newAppDayOfWeek.op_saturday = op_saturday
         newAppDayOfWeek.gi = gi
         newAppDayOfWeek.noGi = noGi
-        newAppDayOfWeek.goodForBeginners = noGi
         newAppDayOfWeek.openMat = noGi
+        newAppDayOfWeek.goodForBeginners = noGi
+
+        // Set daysSelected attribute
+        newAppDayOfWeek.daysSelected = selectedDays
 
         saveContext()
+        print("Created AppDayOfWeek: \(newAppDayOfWeek)")
         return newAppDayOfWeek
     }
-
+    
+    
     // Update an existing AppDayOfWeek
-    func updateAppDayOfWeek(appDayOfWeek: AppDayOfWeek, sunday: Bool, monday: Bool, tuesday: Bool, wednesday: Bool, thursday: Bool, friday: Bool, saturday: Bool, matTime: String?, restrictions: Bool, restrictionDescription: String?, op_sunday: Bool, op_monday: Bool, op_tuesday: Bool, op_wednesday: Bool, op_thursday: Bool, op_friday: Bool, op_saturday: Bool, gi: Bool, noGi: Bool) {
+    func updateAppDayOfWeek(appDayOfWeek: AppDayOfWeek, sunday: Bool, monday: Bool, tuesday: Bool, wednesday: Bool, thursday: Bool, friday: Bool, saturday: Bool, matTime: String?, restrictions: Bool, restrictionDescription: String?, op_sunday: Bool, op_monday: Bool, op_tuesday: Bool, op_wednesday: Bool, op_thursday: Bool, op_friday: Bool, op_saturday: Bool, gi: Bool, noGi: Bool, selectedDays: [String]) {
         appDayOfWeek.sunday = sunday
         appDayOfWeek.monday = monday
         appDayOfWeek.tuesday = tuesday
@@ -191,13 +181,19 @@ class CoreDataStack: ObservableObject {
         appDayOfWeek.openMat = noGi
         appDayOfWeek.goodForBeginners = noGi
 
+        // Update daysSelected attribute
+        appDayOfWeek.daysSelected = selectedDays
+
+
         saveContext()
+        print("Updated AppDayOfWeek: \(appDayOfWeek)")
     }
 
     // Delete an AppDayOfWeek
     func deleteAppDayOfWeek(appDayOfWeek: AppDayOfWeek) {
         context.delete(appDayOfWeek)
         saveContext()
+        print("Deleted AppDayOfWeek: \(appDayOfWeek)")
     }
 }
 
@@ -209,4 +205,23 @@ enum Destination: String, CaseIterable, Identifiable, Hashable {
     case other = "UNCHARTED SEAS"
 
     var id: String { self.rawValue }
+}
+
+import CoreData
+
+extension NSManagedObjectContext {
+    static var preview: NSManagedObjectContext {
+        let container = NSPersistentContainer(name: "Seas2") // Replace with your Core Data model name
+        let description = NSPersistentStoreDescription()
+        description.type = NSInMemoryStoreType // Use in-memory store type for previews
+        container.persistentStoreDescriptions = [description]
+
+        container.loadPersistentStores { (storeDescription, error) in
+            if let error = error as NSError? {
+                fatalError("Unresolved error \(error), \(error.userInfo)")
+            }
+        }
+
+        return container.viewContext
+    }
 }
